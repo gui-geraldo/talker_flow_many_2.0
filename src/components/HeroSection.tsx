@@ -108,7 +108,7 @@ const HeroSection: React.FC = () => {
                   <div className="flex items-center">
                     <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center overflow-hidden">
                       <img
-                        src="https://cdn.pixabay.com/photo/2021/01/17/09/11/woman-5924366_1280.jpg"
+                        src="/images/Whats_Profile_Photo.jpg
                         alt="Fernanda avatar"
                         className="w-full h-full object-cover"
                       />
@@ -129,13 +129,14 @@ const HeroSection: React.FC = () => {
                   >
                     {/* Mensagens */}
                     <div className="bg-white pt-3 pb-1 px-3 rounded-lg rounded-tl-none max-w-[80%] shadow-sm">
-                      <p className="text-sm">Olá! Gostaria de agendar uma consulta.</p>
+                      <p className="text-sm">Oi! Quro agendar uma consulta</p>
                       <p className="text-[10px] text-gray-500 text-right">10:30</p>
                     </div>
 
                     <div className="bg-[#d9fdd3] p-3 rounded-lg rounded-tr-none ml-auto max-w-[80%] shadow-sm">
                       <p className="text-sm">
-                        Olá! Tudo bem? Eu sou a Marcela, recepcionista aqui da Clínica Integral Care. Me conte, é sua primeira consulta com a gente?
+                        Olá! Tudo bem? Eu sou a Marcela, aqui da Clínica Integral Care.<br />
+                        Me conte, é sua primeira consulta com a gente?
                       </p>
                       <div className="flex items-center justify-end gap-1 mt-1">
                         <p className="text-[10px] text-gray-500">10:31</p>
@@ -152,7 +153,7 @@ const HeroSection: React.FC = () => {
 
                     <div className="bg-[#d9fdd3] p-3 rounded-lg rounded-tr-none ml-auto max-w-[80%] shadow-sm">
                       <p className="text-sm">
-                        Temos disponibilidade com Dr. Paulo na sexta às 16h ou 17:15. Qual
+                        Legal! Tenho horário com o Dr. Paulo na sexta às 16h ou 17:15. Qual
                         horário prefere?
                       </p>
                       <div className="flex items-center justify-end gap-1 mt-1">
@@ -184,7 +185,7 @@ const HeroSection: React.FC = () => {
 
                     <div className="bg-[#d9fdd3] p-3 rounded-lg rounded-tr-none ml-auto max-w-[80%] shadow-sm">
                       <p className="text-sm">
-                        Sim, esse horário é uma correria mesmo nas sextas! Pode ser de manhã sim sem problemas. De manhã vou ter na terça, às 9h ou 11:15h. Qual destes fica melhor?
+                        Sim, sexta é uma correria mesmo! Pode ser de manhã sim. De manhã vou ter na terça, às 9h ou 11:15h. Qual destes fica melhor?
                       </p>
                       <div className="flex items-center justify-end gap-1 mt-1">
                         <p className="text-[10px] text-gray-500">10:34</p>
