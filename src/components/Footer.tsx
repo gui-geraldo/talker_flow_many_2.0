@@ -59,7 +59,7 @@ const Footer: React.FC = () => {
             <h4 className="font-bold text-lg mb-4">Contato</h4>
             <ul className="space-y-2">
               <li className="text-white/70">
-                contato@manytasks.com.br
+                contato@manytasks.net
               </li>
               <li className="text-white/70">
                 (21) 98801-3301
