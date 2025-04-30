@@ -156,7 +156,7 @@ const HeroSection: React.FC = () => {
                     style={{ scrollbarWidth: 'none', scrollBehavior: 'smooth' }}
                   >
                     <div className="bg-white pt-3 pb-1 px-3 rounded-lg rounded-tl-none max-w-[80%] shadow-sm">
-                      <p className="text-sm">Oi! Quro agendar uma consulta</p>
+                      <p className="text-sm">Oi! Quero agendar uma consulta</p>
                       <p className="text-[10px] text-gray-500 text-right">10:30</p>
                     </div>
                     <div className="bg-[#d9fdd3] p-3 rounded-lg rounded-tr-none ml-auto max-w-[80%] shadow-sm">
@@ -205,7 +205,7 @@ const HeroSection: React.FC = () => {
                     </div>
                     <div className="bg-[#d9fdd3] p-3 rounded-lg rounded-tr-none ml-auto max-w-[80%] shadow-sm">
                       <p className="text-sm">
-                        Sim, sexta é uma correria mesmo! Vamos ver de manhã, vou ter na terça, às 9h ou 11:15h. Qual destes fica melhor?
+                        Sim, sexta é uma correria mesmo! Vamos de manhã, vou ter na terça às 9h ou 11:15h. Qual destes fica melhor?
                       </p>
                       <div className="flex items-center justify-end gap-1 mt-1">
                         <p className="text-[10px] text-gray-500">10:34</p>
