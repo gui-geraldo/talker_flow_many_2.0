@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 
@@ -6,24 +5,24 @@ const DepoimentosSection: React.FC = () => {
   const depoimentos = [
     {
       nome: "Dr. Carlos Silva",
-      especialidade: "Ortopedista",
+      especialidade: "Dentista",
       cidade: "São Paulo",
-      foto: "/placeholder.svg",
-      texto: "Passamos de 4 horas diárias no telefone para zero. O agente de IA até consegue encaixar pacientes de última hora quando há cancelamentos."
+      foto: "/testimonial_icon/carlos-silva.jpg",
+      texto: "Passamos de 4 horas diárias no telefone para quase zero. O agente de IA até consegue encaixar pacientes de última hora quando há cancelamentos."
     },
     {
       nome: "Dra. Marta Ribeiro",
-      especialidade: "Dermatologista",
-      cidade: "Rio de Janeiro",
-      foto: "/placeholder.svg",
-      texto: "Impressionante como os pacientes preferem o atendimento automatizado. Sem filas, sem espera e agenda sempre otimizada."
+      especialidade: "Implantodontia",
+      cidade: "Manaus",
+      foto: "/testimonial_icon/marta-ribeiro.jpg",
+      texto: "Impressionante como simplesmente não há fila. O paciente manda mensagem 14:00, às 14:01 ele é atendido e em 5 minutos a consulta está marcada."
     },
     {
       nome: "Dr. Paulo Mendes",
       especialidade: "Clínico Geral",
       cidade: "Belo Horizonte",
-      foto: "/placeholder.svg",
-      texto: "Reduziu as faltas em 38% nos primeiros dois meses. O retorno sobre investimento foi muito mais rápido do que esperávamos."
+      foto: "/testimonial_icon/paulo-mendes.jpg",
+      texto: "Já tive um paciente que agendou consulta às 3 da manhã de um domingo. Quando acordei vi a notificação de agendamento confirmado. Se não fosse pela automação, com certeza teria agendado com outra clínica."
     }
   ];
 
@@ -85,6 +84,7 @@ const DepoimentosSection: React.FC = () => {
           <button 
             className="absolute top-1/2 -left-4 -translate-y-1/2 w-12 h-12 bg-white rounded-full shadow-md flex items-center justify-center text-neutral-dark hover:text-primary transition-colors"
             onClick={prevDepoimento}
+            aria-label="Depoimento anterior"
           >
             <ArrowLeft size={20} />
           </button>
@@ -92,6 +92,7 @@ const DepoimentosSection: React.FC = () => {
           <button 
             className="absolute top-1/2 -right-4 -translate-y-1/2 w-12 h-12 bg-white rounded-full shadow-md flex items-center justify-center text-neutral-dark hover:text-primary transition-colors"
             onClick={nextDepoimento}
+            aria-label="Próximo depoimento"
           >
             <ArrowRight size={20} />
           </button>
@@ -104,6 +105,7 @@ const DepoimentosSection: React.FC = () => {
                   index === currentIndex ? "bg-primary" : "bg-neutral-dark/20"
                 }`}
                 onClick={() => setCurrentIndex(index)}
+                aria-label={`Ir para depoimento ${index + 1}`}
               />
             ))}
           </div>
