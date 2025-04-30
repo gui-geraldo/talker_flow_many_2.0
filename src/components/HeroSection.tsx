@@ -128,7 +128,7 @@ const HeroSection: React.FC = () => {
                     style={{ scrollbarWidth: 'none' }}
                   >
                     {/* Mensagens */}
-                    <div className="bg-white p-3 rounded-lg rounded-tl-none max-w-[80%] shadow-sm">
+                    <div className="bg-white pt-3 pb-1 px-3 rounded-lg rounded-tl-none max-w-[80%] shadow-sm">
                       <p className="text-sm">Olá! Gostaria de agendar uma consulta.</p>
                       <p className="text-[10px] text-gray-500 text-right">10:30</p>
                     </div>
@@ -143,7 +143,7 @@ const HeroSection: React.FC = () => {
                       </div>
                     </div>
 
-                    <div className="bg-white p-3 rounded-lg rounded-tl-none max-w-[80%] shadow-sm">
+                    <div className="bg-white pt-3 pb-1 px-3 rounded-lg rounded-tl-none max-w-[80%] shadow-sm">
                       <p className="text-sm">
                         Sim, primeira vez. Tem pra sexta?
                       </p>
