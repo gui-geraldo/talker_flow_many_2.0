@@ -19,11 +19,6 @@ const DiferenciaisSection: React.FC = () => {
       description: "Atendimento em múltiplos idiomas, permitindo que sua clínica atenda uma clientela diversificada sem barreiras de comunicação.",
       icon: Users
     },
-    {
-      title: "API aberta para integração",
-      description: "Conecte facilmente ao seu software de gestão médica existente ou sincronize com Google Agenda e outros sistemas de calendário.",
-      icon: Calendar
-    }
   ];
 
   return (
