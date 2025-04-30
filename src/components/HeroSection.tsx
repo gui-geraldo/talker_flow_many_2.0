@@ -129,7 +129,7 @@ const HeroSection: React.FC = () => {
                   >
                     {/* Mensagens */}
                     <div className="bg-white p-3 rounded-lg rounded-tl-none max-w-[80%] shadow-sm">
-                      <p className="text-sm">Olá! Gostaria de agendar uma consulta.</p>
+                      <p className="text-sm">Olá! Gostaria de agendar uma consulta</p>
                       <p className="text-[10px] text-gray-500 text-right">10:30</p>
                     </div>
 
