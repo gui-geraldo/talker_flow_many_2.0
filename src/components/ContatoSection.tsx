@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
 import { Phone, Mail, Send } from 'lucide-react';
@@ -19,29 +18,42 @@ const ContatoSection: React.FC = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    // Simulando envio do formulário
-    toast({
-      title: "Solicitação enviada!",
-      description: "Em breve entraremos em contato para agendar sua demonstração.",
-    });
-    
-    // Em um caso real, aqui faria uma chamada de API
-    console.log("Dados do formulário:", formData);
-    
-    // Redirecionamento para WhatsApp simulado
+
+    // Enviar dados para o webhook do Make
+    try {
+      await fetch('https://hook.us2.make.com/vh4nrowuglpwslsyyvpjmty9idq9vjkd', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      toast({
+        title: "Solicitação enviada!",
+        description: "Em breve entraremos em contato para agendar sua demonstração.",
+      });
+    } catch (error) {
+      toast({
+        title: "Erro ao enviar formulário",
+        description: "Tente novamente mais tarde.",
+      });
+      console.error("Erro ao enviar dados para o webhook:", error);
+      return;
+    }
+
+    // Redirecionamento para WhatsApp (simulado)
     const whatsappNumber = "5521988013301";
     const message = `Olá! Sou ${formData.nome} da ${formData.clinica} e gostaria de uma demonstração do Many Tasks.`;
     const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
-    
-    // Normalmente aqui abriria o WhatsApp, mas vamos apenas mostrar um toast
+
     toast({
       title: "Redirecionando para WhatsApp...",
       description: "Você será conectado com um consultor.",
     });
-    
+
     // Reset do formulário
     setFormData({
       nome: '',
@@ -186,7 +198,7 @@ const ContatoSection: React.FC = () => {
                       <Check className="text-primary" size={16} />
                     </div>
                   </div>
-                  <p className="mt-1">Consultoria gratuita sobre automação de processos</p>
+                  <p className="mt-1">Demosntração na realidade da sua clínica</p>
                 </li>
                 <li className="flex items-start card-modern p-3 pl-0">
                   <div className="mr-4 mt-1 flex-shrink-0">
