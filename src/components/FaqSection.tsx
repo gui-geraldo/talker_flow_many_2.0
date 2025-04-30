@@ -13,16 +13,12 @@ const FaqSection: React.FC = () => {
       resposta: "Sim! O agente é treinado para lidar com situações como reagendamentos, cancelamentos, verificação de disponibilidade por especialidade ou profissional específico, e até mesmo priorizar urgências conforme regras da clínica."
     },
     {
-      pergunta: "É possível integrar com o sistema de gestão que já utilizo?",
-      resposta: "Com certeza. O Many Tasks possui API aberta e conectores para os principais sistemas de gestão de clínicas do mercado. Se você utiliza um sistema que ainda não temos integração nativa, nossa equipe de desenvolvimento pode criar uma conexão personalizada."
-    },
-    {
       pergunta: "Como é feito o treinamento do agente para o perfil da minha clínica?",
       resposta: "Desenvolvemos um processo de personalização onde coletamos informações sobre protocolos de atendimento, tipos de serviços oferecidos, regras de agenda e tom de comunicação preferido. O agente é então ajustado para refletir a identidade e os procedimentos específicos da sua clínica."
     },
     {
       pergunta: "Como garantir a privacidade dos dados dos pacientes?",
-      resposta: "O Many Tasks é 100% compatível com a LGPD. Utilizamos criptografia de ponta a ponta, armazenamento seguro em servidores no Brasil e processos rigorosos de acesso a dados. Além disso, fornecemos toda a documentação necessária para conformidade legal da sua operação."
+      resposta: "O Many Tasks é 100% compatível com a LGPD. Utilizamos criptografia de ponta a ponta, armazenamento seguro e processos rigorosos de acesso a dados. Além disso, fornecemos toda a documentação necessária para conformidade legal da sua operação."
     }
   ];
 
@@ -33,10 +29,10 @@ const FaqSection: React.FC = () => {
   };
 
   return (
-    <section className="section-padding bg-neutral-background">
+    <section className="section-padding bg-gradient-to-b from-blue-50/30 to-white">
       <div className="container-custom">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-extrabold mb-4 text-neutral-dark">
+          <h2 className="text-3xl md:text-4xl font-extrabold mb-4 text-gradient">
             Perguntas Frequentes
           </h2>
           <p className="text-lg text-neutral-dark/70 max-w-2xl mx-auto">
@@ -48,11 +44,11 @@ const FaqSection: React.FC = () => {
           {faqs.map((faq, index) => (
             <div 
               key={index}
-              className="mb-4 border-b border-neutral-background pb-4 animate-fade-in"
+              className="mb-6 animate-fade-in bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               <button
-                className="flex justify-between items-center w-full text-left py-4 px-2 focus:outline-none"
+                className="flex justify-between items-center w-full text-left py-5 px-6 focus:outline-none"
                 onClick={() => toggleItem(index)}
               >
                 <h3 className="text-xl font-bold text-neutral-dark">{faq.pergunta}</h3>
@@ -63,11 +59,11 @@ const FaqSection: React.FC = () => {
                 )}
               </button>
               <div 
-                className={`transition-all duration-300 overflow-hidden ${
-                  openIndex === index ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+                className={`transition-all duration-300 overflow-hidden border-t ${
+                  openIndex === index ? 'max-h-96 opacity-100 border-gray-100' : 'max-h-0 opacity-0 border-transparent'
                 }`}
               >
-                <p className="px-2 pb-4 text-neutral-dark/80">
+                <p className="px-6 py-5 text-neutral-dark/80">
                   {faq.resposta}
                 </p>
               </div>
@@ -75,8 +71,8 @@ const FaqSection: React.FC = () => {
           ))}
         </div>
 
-        <div className="text-center mt-12">
-          <p className="mb-4 text-neutral-dark/70">
+        <div className="text-center mt-12 p-6 bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl shadow-sm border border-blue-100/50">
+          <p className="mb-4 text-neutral-dark/90 font-medium">
             Não encontrou o que procurava?
           </p>
           <a href="#contato" className="text-primary font-semibold hover:underline">

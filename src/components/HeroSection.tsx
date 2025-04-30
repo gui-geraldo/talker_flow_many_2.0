@@ -1,17 +1,53 @@
 
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { MessageSquare, Clock, Mic, CheckCheck } from 'lucide-react';
 
 const HeroSection: React.FC = () => {
+  const chatRef = useRef<HTMLDivElement>(null);
+  const [scrollPosition, setScrollPosition] = useState(0);
+  const [chatProgress, setCharProgress] = useState(0);
+  
   const playAudio = () => {
     const audio = document.getElementById('patientAudio') as HTMLAudioElement;
     if (audio) {
       audio.play();
     }
   };
+  
+  // Efeito para controlar o scroll do chat conforme a página é rolada
+  useEffect(() => {
+    const handleScroll = () => {
+      const position = window.scrollY;
+      setScrollPosition(position);
+      
+      // Calcular progresso para o chat (de 0 a 100%)
+      const heroSection = document.getElementById('hero-section');
+      if (heroSection) {
+        const sectionTop = heroSection.offsetTop;
+        const sectionHeight = heroSection.offsetHeight;
+        const scrollInSection = position - sectionTop;
+        
+        // Limitar o progresso entre 0 e 100%
+        const progress = Math.max(0, Math.min(100, (scrollInSection / (sectionHeight * 0.6)) * 100));
+        setCharProgress(progress);
+      }
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+  
+  // Efeito para atualizar o scroll do chat baseado no progresso
+  useEffect(() => {
+    if (chatRef.current) {
+      const maxScroll = chatRef.current.scrollHeight - chatRef.current.clientHeight;
+      const scrollTo = (maxScroll * chatProgress) / 100;
+      chatRef.current.scrollTop = scrollTo;
+    }
+  }, [chatProgress]);
 
   return (
-    <section className="pt-28 pb-16 md:pt-40 md:pb-24 bg-gradient-to-br from-neutral-background to-blue-50">
+    <section id="hero-section" className="pt-28 pb-16 md:pt-40 md:pb-24 bg-gradient-to-br from-neutral-background to-blue-50">
       <div className="container-custom">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div className="animate-fade-in">
@@ -36,7 +72,7 @@ const HeroSection: React.FC = () => {
               </div>
               <div className="flex items-center">
                 <Clock className="text-primary mr-2" size={20} />
-                <span className="text-sm font-medium">Integração com WhatsApp Business API</span>
+                <span className="text-sm font-medium">Conversação 24/7 via WhatsApp</span>
               </div>
             </div>
           </div>
@@ -46,8 +82,18 @@ const HeroSection: React.FC = () => {
               <div className="absolute -top-6 -left-6 w-16 h-16 bg-primary/10 rounded-full"></div>
               <div className="absolute -bottom-8 -right-8 w-24 h-24 bg-secondary/10 rounded-full"></div>
               
-              {/* WhatsApp Style Chat */}
-              <div className="bg-[#f0f2f5] p-2 pt-0 rounded-xl shadow-xl w-full max-w-md">
+              {/* Smartphone Frame */}
+              <div className="relative mx-auto border-gray-800 dark:border-gray-800 bg-gray-800 border-[14px] rounded-[2.5rem] h-[600px] w-[300px] shadow-xl">
+                {/* Notch */}
+                <div className="absolute top-0 inset-x-0">
+                  <div className="h-6 w-40 mx-auto rounded-b-3xl bg-gray-800"></div>
+                </div>
+                
+                {/* Volume Button */}
+                <div className="absolute left-[-14px] top-[80px] h-[32px] w-[3px] bg-gray-700 rounded-l-lg"></div>
+                {/* Power Button */}
+                <div className="absolute right-[-14px] top-[150px] h-[32px] w-[3px] bg-gray-700 rounded-r-lg"></div>
+                
                 {/* WhatsApp Header */}
                 <div className="flex justify-between items-center py-2 px-4 bg-[#128C7E] text-white rounded-t-xl">
                   <div className="flex items-center">
@@ -67,7 +113,8 @@ const HeroSection: React.FC = () => {
                 
                 {/* Chat Body with WhatsApp style background */}
                 <div 
-                  className="space-y-4 p-4 bg-[#e4e1de] bg-opacity-60 h-[350px] overflow-y-auto" 
+                  ref={chatRef}
+                  className="space-y-4 p-4 bg-[#e4e1de] bg-opacity-60 h-[calc(100%-56px)] overflow-y-auto" 
                   style={{ 
                     backgroundImage: "url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png')",
                     backgroundSize: "contain"
@@ -125,11 +172,14 @@ const HeroSection: React.FC = () => {
                 </div>
                 
                 {/* Input Area */}
-                <div className="flex items-center bg-[#f0f2f5] p-2 rounded-b-xl border-t border-gray-200">
+                <div className="absolute bottom-0 left-0 right-0 flex items-center bg-[#f0f2f5] p-2 border-t border-gray-200">
                   <div className="w-full h-10 bg-white rounded-full px-4 flex items-center text-sm text-gray-400">
                     Digite uma mensagem...
                   </div>
                 </div>
+                
+                {/* Home button/indicator */}
+                <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2 w-28 h-1 bg-gray-700 rounded-full"></div>
               </div>
             </div>
           </div>

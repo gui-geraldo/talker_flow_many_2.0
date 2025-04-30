@@ -6,55 +6,42 @@ const PlanosSection: React.FC = () => {
   const planos = [
     {
       nome: "Essencial",
-      preco: "R$ 497",
+      preco: "R$ 897,99",
       periodo: "/mês",
       destaque: false,
       recursos: [
         "Até 2.000 mensagens/mês",
         "Integração com WhatsApp Business",
-        "Lembretes automáticos",
         "Interface administrativa",
+        "Atendimento apenas em português",
+        "Não reconhece áudios e emojis",
+        "Apenas 1 usuário",
         "Relatórios básicos",
       ],
       botao: "Contratar"
     },
     {
       nome: "Pro",
-      preco: "R$ 897",
+      preco: "R$ 1.200",
       periodo: "/mês",
       destaque: true,
       recursos: [
         "Mensagens ilimitadas",
         "Suporte a 24 idiomas",
         "Reconhecimento de áudio",
-        "API para integração completa",
-        "Relatórios avançados",
+        "Entendimento de emojis",
+        "Até 5 usuários",
         "Prioridade no suporte"
       ],
       botao: "Recomendado"
-    },
-    {
-      nome: "Enterprise",
-      preco: "Personalizado",
-      periodo: "",
-      destaque: false,
-      recursos: [
-        "Solução personalizada",
-        "Integração dedicada",
-        "Multi-unidades",
-        "Gerente de conta exclusivo",
-        "SLA garantido",
-        "Suporte 24/7"
-      ],
-      botao: "Fale Conosco"
     }
   ];
 
   return (
-    <section id="planos" className="section-padding bg-white">
+    <section id="planos" className="section-padding bg-gradient-to-b from-white to-blue-50/30">
       <div className="container-custom">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-extrabold mb-4 text-neutral-dark">
+          <h2 className="text-3xl md:text-4xl font-extrabold mb-4 text-gradient">
             Planos e Preços
           </h2>
           <p className="text-lg text-neutral-dark/70 max-w-2xl mx-auto">
@@ -62,19 +49,19 @@ const PlanosSection: React.FC = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
           {planos.map((plano, index) => (
             <div 
               key={index} 
-              className={`rounded-xl shadow-sm border transition-all duration-300 hover:shadow-lg animate-fade-in overflow-hidden ${
+              className={`rounded-2xl overflow-hidden transition-all duration-500 hover:shadow-2xl animate-fade-in ${
                 plano.destaque 
-                  ? 'border-primary relative scale-105 shadow-lg' 
-                  : 'border-neutral-background'
+                  ? 'border-primary relative scale-105 shadow-lg border-2 bg-gradient-to-br from-white to-blue-50' 
+                  : 'border-neutral-background shadow glass-effect'
               }`}
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               {plano.destaque && (
-                <div className="bg-primary text-white text-center py-2 text-sm font-medium">
+                <div className="bg-gradient-to-r from-primary to-blue-600 text-white text-center py-2 text-sm font-medium">
                   Mais Popular
                 </div>
               )}
@@ -88,7 +75,7 @@ const PlanosSection: React.FC = () => {
                 <ul className="space-y-4 mb-8">
                   {plano.recursos.map((recurso, i) => (
                     <li key={i} className="flex items-center">
-                      <Check className="mr-3 text-secondary" size={18} />
+                      <Check className={`mr-3 ${plano.destaque ? 'text-blue-500' : 'text-secondary'}`} size={18} />
                       <span>{recurso}</span>
                     </li>
                   ))}
@@ -96,10 +83,10 @@ const PlanosSection: React.FC = () => {
                 
                 <a
                   href="#contato"
-                  className={`w-full py-3 px-6 rounded-md font-semibold text-center block transition-transform hover:scale-105 ${
+                  className={`w-full py-3 px-6 rounded-xl font-semibold text-center block transition-all hover:shadow-lg ${
                     plano.destaque
-                      ? 'bg-primary text-white'
-                      : 'bg-neutral-background text-neutral-dark'
+                      ? 'bg-gradient-to-r from-primary to-blue-600 text-white hover:scale-105'
+                      : 'bg-neutral-background text-neutral-dark border border-neutral-dark/20 hover:bg-neutral-dark/5'
                   }`}
                 >
                   {plano.botao}
@@ -112,8 +99,6 @@ const PlanosSection: React.FC = () => {
         <div className="mt-8 text-center text-neutral-dark/70">
           <p>
             Todos os planos incluem suporte técnico e atualizações gratuitas. 
-            <br />
-            Para mais de 5 profissionais, recomendamos o plano Enterprise.
           </p>
         </div>
       </div>

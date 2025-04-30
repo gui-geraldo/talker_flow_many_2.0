@@ -54,19 +54,19 @@
 
 @layer components {
   .btn-primary {
-    @apply bg-primary text-white font-semibold py-3 px-6 rounded-md hover:scale-105 transition-transform duration-300 hover:shadow-lg;
+    @apply bg-gradient-to-r from-primary to-blue-600 text-white font-semibold py-3 px-6 rounded-full hover:scale-105 transition-all duration-300 hover:shadow-lg;
   }
 
   .btn-secondary {
-    @apply bg-secondary text-white font-semibold py-3 px-6 rounded-md hover:scale-105 transition-transform duration-300 hover:shadow-lg;
+    @apply bg-secondary text-white font-semibold py-3 px-6 rounded-full hover:scale-105 transition-all duration-300 hover:shadow-lg;
   }
 
   .btn-outline {
-    @apply border border-primary text-primary font-semibold py-3 px-6 rounded-md hover:scale-105 transition-transform duration-300;
+    @apply border border-primary text-primary font-semibold py-3 px-6 rounded-full hover:scale-105 transition-all duration-300;
   }
 
   .card-hover {
-    @apply transition-all duration-300 hover:shadow-lg hover:-translate-y-1;
+    @apply transition-all duration-300 hover:shadow-xl hover:-translate-y-2;
   }
 
   .section-padding {
@@ -86,7 +86,7 @@
   }
   
   .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary;
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-blue-600;
   }
 }
 
@@ -117,6 +117,23 @@
   animation: pulse-soft 3s infinite;
 }
 
+/* Smartphone frame animation */
+@keyframes phone-ring {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-1deg);
+  }
+  75% {
+    transform: rotate(1deg);
+  }
+}
+
+.phone-shake {
+  animation: phone-ring 0.5s ease-in-out infinite;
+}
+
 /* Improved scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
@@ -133,4 +150,23 @@
 
 ::-webkit-scrollbar-thumb:hover {
   background: #304ffe;
+}
+
+/* WhatsApp specific styles */
+.whatsapp-chat {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Device frame styles */
+.phone-frame {
+  position: relative;
+  border: 14px solid #222;
+  border-radius: 2.5rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  transition: all 0.5s;
+}
+
+.phone-frame:hover {
+  transform: scale(1.02);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
 }
