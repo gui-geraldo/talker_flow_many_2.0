@@ -182,7 +182,7 @@ const ContatoSection: React.FC = () => {
                       <Check className="text-primary" size={16} />
                     </div>
                   </div>
-                  <p className="mt-1">Demonstração personalizada para seu tipo de clínica</p>
+                  <p className="mt-1">Demonstração personalizada para sua clínica</p>
                 </li>
                 <li className="flex items-start card-modern p-3 pl-4">
                   <div className="mr-4 mt-1 flex-shrink-0">
@@ -198,7 +198,7 @@ const ContatoSection: React.FC = () => {
                       <Check className="text-primary" size={16} />
                     </div>
                   </div>
-                  <p className="mt-1">Consultoria gratuita sobre automação de processos</p>
+                  <p className="mt-1">Consultoria sobre automação de processos</p>
                 </li>
                 <li className="flex items-start card-modern p-3 pl-4">
                   <div className="mr-4 mt-1 flex-shrink-0">
@@ -216,13 +216,13 @@ const ContatoSection: React.FC = () => {
                 <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mr-3">
                   <Phone className="text-primary" size={20} />
                 </div>
-                <span>(21) 98801-3301</span>
+                <span>(11) 98801-3301</span>
               </div>
               <div className="flex items-center hover:scale-105 transition-transform duration-300">
                 <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mr-3">
                   <Mail className="text-primary" size={20} />
                 </div>
-                <span>contato@manytasks.com.br</span>
+                <span>contato@manytasks.net</span>
               </div>
             </div>
           </div>
