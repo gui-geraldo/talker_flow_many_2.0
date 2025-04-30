@@ -93,18 +93,13 @@ const HeroSection: React.FC = () => {
 
               {/* Smartphone Frame */}
               <div className="relative mx-auto border-gray-800 bg-black border-[14px] rounded-[2.5rem] h-[640px] w-[300px] shadow-xl overflow-hidden">
-                {/* Notch */}
-                <div className="absolute top-0 inset-x-0 z-10">
-                  <div className="h-6 w-40 mx-auto rounded-b-3xl bg-black"></div>
-                </div>
-
                 {/* Volume Button */}
                 <div className="absolute left-[-14px] top-[80px] h-[32px] w-[3px] bg-gray-700 rounded-l-lg"></div>
                 {/* Power Button */}
                 <div className="absolute right-[-14px] top-[150px] h-[32px] w-[3px] bg-gray-700 rounded-r-lg"></div>
 
                 {/* WhatsApp Header */}
-                <div className="flex justify-between items-center py-2 px-4 bg-[#075E54] text-white rounded-t-xl">
+                <div className="relative z-20 flex justify-between items-center py-3 px-4 bg-[#075E54] text-white">
                   <div className="flex items-center">
                     <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center overflow-hidden">
                       <img
@@ -120,6 +115,11 @@ const HeroSection: React.FC = () => {
                   </div>
                 </div>
 
+                {/* Notch */}
+                <div className="absolute top-0 inset-x-0 z-30 pointer-events-none">
+                  <div className="h-6 w-40 mx-auto rounded-b-3xl bg-black"></div>
+                </div>
+
                 {/* Chat Area */}
                 <div className="flex flex-col h-full bg-[#ece5dd]">
                   <div
@@ -129,7 +129,7 @@ const HeroSection: React.FC = () => {
                   >
                     {/* Mensagens */}
                     <div className="bg-white p-3 rounded-lg rounded-tl-none max-w-[80%] shadow-sm">
-                      <p className="text-sm">Olá! Gostaria de agendar uma consulta</p>
+                      <p className="text-sm">Olá! Gostaria de agendar uma consulta.</p>
                       <p className="text-[10px] text-gray-500 text-right">10:30</p>
                     </div>
 
