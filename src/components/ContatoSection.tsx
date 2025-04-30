@@ -176,7 +176,7 @@ const ContatoSection: React.FC = () => {
                 Por que agendar uma demonstração?
               </h3>
               <ul className="space-y-4">
-                <li className="flex items-start card-modern p-3 pl-0">
+                <li className="flex items-start card-modern p-3 pl-4">
                   <div className="mr-4 mt-1 flex-shrink-0">
                     <div className="w-8 h-8 bg-primary/20 rounded-full flex items-center justify-center">
                       <Check className="text-primary" size={16} />
@@ -184,7 +184,7 @@ const ContatoSection: React.FC = () => {
                   </div>
                   <p className="mt-1">Demonstração personalizada para seu tipo de clínica</p>
                 </li>
-                <li className="flex items-start card-modern p-3 pl-0">
+                <li className="flex items-start card-modern p-3 pl-4">
                   <div className="mr-4 mt-1 flex-shrink-0">
                     <div className="w-8 h-8 bg-primary/20 rounded-full flex items-center justify-center">
                       <Check className="text-primary" size={16} />
@@ -192,15 +192,15 @@ const ContatoSection: React.FC = () => {
                   </div>
                   <p className="mt-1">Veja o agente em ação com cenários do seu dia a dia</p>
                 </li>
-                <li className="flex items-start card-modern p-3 pl-0">
+                <li className="flex items-start card-modern p-3 pl-4">
                   <div className="mr-4 mt-1 flex-shrink-0">
                     <div className="w-8 h-8 bg-primary/20 rounded-full flex items-center justify-center">
                       <Check className="text-primary" size={16} />
                     </div>
                   </div>
-                  <p className="mt-1">Demosntração na realidade da sua clínica</p>
+                  <p className="mt-1">Consultoria gratuita sobre automação de processos</p>
                 </li>
-                <li className="flex items-start card-modern p-3 pl-0">
+                <li className="flex items-start card-modern p-3 pl-4">
                   <div className="mr-4 mt-1 flex-shrink-0">
                     <div className="w-8 h-8 bg-primary/20 rounded-full flex items-center justify-center">
                       <Check className="text-primary" size={16} />
