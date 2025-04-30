@@ -108,7 +108,7 @@ const HeroSection: React.FC = () => {
                   <div className="flex items-center">
                     <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center overflow-hidden">
                       <img
-                        src="/Whats_Profile_Photo.jpg
+                        <img src="/Whats_Profile_Photo.jpg"
                         alt="Fernanda avatar"
                         className="w-full h-full object-cover"
                       />
