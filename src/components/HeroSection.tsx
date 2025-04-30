@@ -93,13 +93,18 @@ const HeroSection: React.FC = () => {
 
               {/* Smartphone Frame */}
               <div className="relative mx-auto border-gray-800 bg-black border-[14px] rounded-[2.5rem] h-[640px] w-[300px] shadow-xl overflow-hidden">
+                {/* Notch */}
+                <div className="absolute top-0 inset-x-0 z-30 pointer-events-none">
+                  <div className="h-6 w-40 mx-auto mt-[-2px] rounded-b-3xl bg-black"></div>
+                </div>
+
                 {/* Volume Button */}
                 <div className="absolute left-[-14px] top-[80px] h-[32px] w-[3px] bg-gray-700 rounded-l-lg"></div>
                 {/* Power Button */}
                 <div className="absolute right-[-14px] top-[150px] h-[32px] w-[3px] bg-gray-700 rounded-r-lg"></div>
 
                 {/* WhatsApp Header */}
-                <div className="relative z-20 flex justify-between items-center py-3 px-4 bg-[#075E54] text-white">
+                <div className="relative z-20 flex justify-between items-center pt-6 pb-3 px-4 bg-[#075E54] text-white">
                   <div className="flex items-center">
                     <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center overflow-hidden">
                       <img
@@ -113,11 +118,6 @@ const HeroSection: React.FC = () => {
                       <p className="text-xs text-white/80">Online</p>
                     </div>
                   </div>
-                </div>
-
-                {/* Notch */}
-                <div className="absolute top-0 inset-x-0 z-30 pointer-events-none">
-                  <div className="h-6 w-40 mx-auto rounded-b-3xl bg-black"></div>
                 </div>
 
                 {/* Chat Area */}
