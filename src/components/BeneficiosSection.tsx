@@ -20,8 +20,8 @@ const BeneficiosSection: React.FC = () => {
     },
     {
       title: "Retorno do investimento",
-      value: "3",
-      description: "Meses, em média, para recuperar o investimento",
+      value: "3 Pacientes",
+      description: "3 pacientes a mais que agendar, já cobrem o investimento",
       icon: Clock,
       color: "text-purple-500"
     }
@@ -53,7 +53,6 @@ const BeneficiosSection: React.FC = () => {
               </div>
               <h3 className="text-5xl font-extrabold mb-2 text-neutral-dark">
                 {item.value}
-                {item.title.includes("meses") ? <span className="text-lg ml-1">meses</span> : <span className="text-lg">%</span>}
               </h3>
               <p className="text-lg font-medium mb-2">{item.title}</p>
               <p className="text-neutral-dark/70">{item.description}</p>
