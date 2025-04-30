@@ -86,7 +86,7 @@ const HeroSection: React.FC = () => {
             </div>
           </div>
 
-          <div className="hidden md:flex justify-center animate-fade-in">
+          <div className="flex justify-center md:flex justify-center animate-fade-in">
             <div className="relative">
               <div className="absolute -top-6 -left-6 w-16 h-16 bg-primary/10 rounded-full"></div>
               <div className="absolute -bottom-8 -right-8 w-24 h-24 bg-secondary/10 rounded-full"></div>
