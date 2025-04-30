@@ -1,0 +1,223 @@
+
+import React, { useState } from 'react';
+import { useToast } from '@/hooks/use-toast';
+import { Phone, Mail, Send } from 'lucide-react';
+import Check from '@/components/Check';
+
+const ContatoSection: React.FC = () => {
+  const { toast } = useToast();
+  const [formData, setFormData] = useState({
+    nome: '',
+    clinica: '',
+    whatsapp: '',
+    email: '',
+    comentario: ''
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    // Simulando envio do formulário
+    toast({
+      title: "Solicitação enviada!",
+      description: "Em breve entraremos em contato para agendar sua demonstração.",
+    });
+    
+    // Em um caso real, aqui faria uma chamada de API
+    console.log("Dados do formulário:", formData);
+    
+    // Redirecionamento para WhatsApp simulado
+    const whatsappNumber = "5521988013301";
+    const message = `Olá! Sou ${formData.nome} da ${formData.clinica} e gostaria de uma demonstração do Many Tasks.`;
+    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+    
+    // Normalmente aqui abriria o WhatsApp, mas vamos apenas mostrar um toast
+    toast({
+      title: "Redirecionando para WhatsApp...",
+      description: "Você será conectado com um consultor.",
+    });
+    
+    // Reset do formulário
+    setFormData({
+      nome: '',
+      clinica: '',
+      whatsapp: '',
+      email: '',
+      comentario: ''
+    });
+  };
+
+  return (
+    <section id="contato" className="section-padding bg-gradient-to-br from-primary/5 to-secondary/5">
+      <div className="container-custom">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl md:text-4xl font-extrabold mb-4 text-neutral-dark relative inline-block">
+            Solicite uma Demonstração
+            <span className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-primary to-secondary rounded-full"></span>
+          </h2>
+          <p className="text-lg text-neutral-dark/70 max-w-2xl mx-auto">
+            Preencha o formulário e um especialista entrará em contato
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-12">
+          <div className="bg-white p-8 rounded-xl shadow-lg glass-effect animate-fade-in">
+            <form onSubmit={handleSubmit}>
+              <div className="mb-6">
+                <label htmlFor="nome" className="block text-sm font-medium text-neutral-dark mb-2">
+                  Nome completo
+                </label>
+                <input
+                  type="text"
+                  id="nome"
+                  name="nome"
+                  value={formData.nome}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 rounded-lg border border-neutral-background focus:outline-none focus:ring-2 focus:ring-primary/50"
+                  placeholder="Seu nome"
+                  required
+                />
+              </div>
+
+              <div className="mb-6">
+                <label htmlFor="clinica" className="block text-sm font-medium text-neutral-dark mb-2">
+                  Nome da Clínica
+                </label>
+                <input
+                  type="text"
+                  id="clinica"
+                  name="clinica"
+                  value={formData.clinica}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 rounded-lg border border-neutral-background focus:outline-none focus:ring-2 focus:ring-primary/50"
+                  placeholder="Nome da sua clínica"
+                  required
+                />
+              </div>
+
+              <div className="mb-6">
+                <label htmlFor="whatsapp" className="block text-sm font-medium text-neutral-dark mb-2">
+                  WhatsApp
+                </label>
+                <input
+                  type="tel"
+                  id="whatsapp"
+                  name="whatsapp"
+                  value={formData.whatsapp}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 rounded-lg border border-neutral-background focus:outline-none focus:ring-2 focus:ring-primary/50"
+                  placeholder="(00) 00000-0000"
+                  required
+                />
+              </div>
+
+              <div className="mb-6">
+                <label htmlFor="email" className="block text-sm font-medium text-neutral-dark mb-2">
+                  E-mail
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 rounded-lg border border-neutral-background focus:outline-none focus:ring-2 focus:ring-primary/50"
+                  placeholder="seu@email.com"
+                  required
+                />
+              </div>
+
+              <div className="mb-6">
+                <label htmlFor="comentario" className="block text-sm font-medium text-neutral-dark mb-2">
+                  Comentários (opcional)
+                </label>
+                <textarea
+                  id="comentario"
+                  name="comentario"
+                  value={formData.comentario}
+                  onChange={handleChange}
+                  rows={4}
+                  className="w-full px-4 py-3 rounded-lg border border-neutral-background focus:outline-none focus:ring-2 focus:ring-primary/50"
+                  placeholder="Conte-nos um pouco sobre sua clínica e suas necessidades"
+                />
+              </div>
+
+              <button
+                type="submit"
+                className="w-full relative overflow-hidden group bg-gradient-to-r from-primary to-primary/80 text-white font-semibold py-4 px-6 rounded-lg flex items-center justify-center gap-2 transition-all duration-300 hover:shadow-lg hover:shadow-primary/30 hover:scale-[1.02]"
+              >
+                <span>Quero automatizar meus agendamentos</span>
+                <Send size={18} className="transition-all duration-300 group-hover:translate-x-1" />
+                <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:animate-[shine_1.5s_ease-in-out]"></div>
+              </button>
+            </form>
+          </div>
+
+          <div className="flex flex-col justify-center">
+            <div className="mb-8">
+              <h3 className="text-2xl font-bold mb-6 text-neutral-dark">
+                Por que agendar uma demonstração?
+              </h3>
+              <ul className="space-y-4">
+                <li className="flex items-start card-modern p-3 pl-0">
+                  <div className="mr-4 mt-1 flex-shrink-0">
+                    <div className="w-8 h-8 bg-primary/20 rounded-full flex items-center justify-center">
+                      <Check className="text-primary" size={16} />
+                    </div>
+                  </div>
+                  <p className="mt-1">Demonstração personalizada para seu tipo de clínica</p>
+                </li>
+                <li className="flex items-start card-modern p-3 pl-0">
+                  <div className="mr-4 mt-1 flex-shrink-0">
+                    <div className="w-8 h-8 bg-primary/20 rounded-full flex items-center justify-center">
+                      <Check className="text-primary" size={16} />
+                    </div>
+                  </div>
+                  <p className="mt-1">Veja o agente em ação com cenários do seu dia a dia</p>
+                </li>
+                <li className="flex items-start card-modern p-3 pl-0">
+                  <div className="mr-4 mt-1 flex-shrink-0">
+                    <div className="w-8 h-8 bg-primary/20 rounded-full flex items-center justify-center">
+                      <Check className="text-primary" size={16} />
+                    </div>
+                  </div>
+                  <p className="mt-1">Consultoria gratuita sobre automação de processos</p>
+                </li>
+                <li className="flex items-start card-modern p-3 pl-0">
+                  <div className="mr-4 mt-1 flex-shrink-0">
+                    <div className="w-8 h-8 bg-primary/20 rounded-full flex items-center justify-center">
+                      <Check className="text-primary" size={16} />
+                    </div>
+                  </div>
+                  <p className="mt-1">Esclareça todas suas dúvidas com especialistas</p>
+                </li>
+              </ul>
+            </div>
+
+            <div className="space-y-4 glass-effect p-6 rounded-xl shadow-md">
+              <div className="flex items-center hover:scale-105 transition-transform duration-300">
+                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mr-3">
+                  <Phone className="text-primary" size={20} />
+                </div>
+                <span>(21) 98801-3301</span>
+              </div>
+              <div className="flex items-center hover:scale-105 transition-transform duration-300">
+                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mr-3">
+                  <Mail className="text-primary" size={20} />
+                </div>
+                <span>contato@manytasks.com.br</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default ContatoSection;
