@@ -12,7 +12,6 @@ const HeroSection: React.FC = () => {
 
   const toggleAudio = () => {
     if (!audioRef.current) return;
-
     if (audioRef.current.paused) {
       audioRef.current.play();
     } else {
@@ -23,17 +22,14 @@ const HeroSection: React.FC = () => {
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
-
     const handlePlay = () => setIsPlaying(true);
     const handlePause = () => setIsPlaying(false);
     const handleTimeUpdate = () => setCurrentTime(audio.currentTime);
     const handleLoadedMetadata = () => setDuration(audio.duration);
-
     audio.addEventListener('play', handlePlay);
     audio.addEventListener('pause', handlePause);
     audio.addEventListener('timeupdate', handleTimeUpdate);
     audio.addEventListener('loadedmetadata', handleLoadedMetadata);
-
     return () => {
       audio.removeEventListener('play', handlePlay);
       audio.removeEventListener('pause', handlePause);
@@ -46,20 +42,15 @@ const HeroSection: React.FC = () => {
     const handleScroll = () => {
       const position = window.scrollY;
       setScrollPosition(position);
-
       const heroSection = document.getElementById('hero-section');
       if (heroSection) {
         const sectionTop = heroSection.offsetTop;
         const sectionHeight = heroSection.offsetHeight;
         const scrollInSection = position - sectionTop;
-        const progress = Math.max(
-          0,
-          Math.min(100, (scrollInSection / (sectionHeight * 0.6)) * 100)
-        );
+        const progress = Math.max(0, Math.min(100, (scrollInSection / (sectionHeight * 0.6)) * 100));
         setCharProgress(progress);
       }
     };
-
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -79,10 +70,7 @@ const HeroSection: React.FC = () => {
   };
 
   return (
-    <section
-      id="hero-section"
-      className="pt-28 pb-16 md:pt-40 md:pb-24 bg-gradient-to-br from-neutral-background to-blue-50"
-    >
+    <section id="hero-section" className="pt-28 pb-16 md:pt-40 md:pb-24 bg-gradient-to-br from-neutral-background to-blue-50">
       <div className="container-custom">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div className="animate-fade-in">
@@ -93,31 +81,21 @@ const HeroSection: React.FC = () => {
               Conversas inteligentes no WhatsApp que qualificam leads, resolvem dúvidas e constroem relações de confiança em diálogos humanos, 24 horas por dia.
             </p>
             <div className="flex flex-wrap gap-4 mb-12">
-              <a
-                href="#contato"
-                className="btn-primary rounded-full flex items-center gap-2 shadow-lg hover:shadow-primary/30"
-              >
+              <a href="#contato" className="btn-primary rounded-full flex items-center gap-2 shadow-lg hover:shadow-primary/30">
                 <span>Solicitar Demonstração</span> <CheckCheck size={18} />
               </a>
-              <a
-                href="#como-funciona"
-                className="btn-outline rounded-full border-2 hover:bg-primary/5"
-              >
+              <a href="#como-funciona" className="btn-outline rounded-full border-2 hover:bg-primary/5">
                 Como Funciona
               </a>
             </div>
             <div className="flex flex-col sm:flex-row gap-4 sm:gap-8 bg-white/50 p-4 rounded-xl border border-primary/10">
               <div className="flex items-center">
                 <MessageSquare className="text-primary mr-2" size={20} />
-                <span className="text-sm font-medium">
-                  Responde até 1.000 mensagens por minuto
-                </span>
+                <span className="text-sm font-medium">Responde até 1.000 mensagens por minuto</span>
               </div>
               <div className="flex items-center">
                 <Clock className="text-primary mr-2" size={20} />
-                <span className="text-sm font-medium">
-                  Conversação 24/7 via WhatsApp
-                </span>
+                <span className="text-sm font-medium">Conversação 24/7 via WhatsApp</span>
               </div>
             </div>
           </div>
@@ -144,11 +122,7 @@ const HeroSection: React.FC = () => {
                 <div className="relative z-20 flex justify-between items-center pt-6 pb-3 px-4 bg-[#075E54] text-white">
                   <div className="flex items-center">
                     <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center overflow-hidden">
-                      <img
-                        src="/Whats_Profile_Photo.jpg"
-                        alt="Fernanda avatar"
-                        className="w-full h-full object-cover"
-                      />
+                      <img src="/Whats_Profile_Photo.jpg" alt="Fernanda avatar" className="w-full h-full object-cover" />
                     </div>
                     <div className="ml-3">
                       <p className="font-medium">Fernanda Paciente</p>
@@ -156,70 +130,50 @@ const HeroSection: React.FC = () => {
                     </div>
                   </div>
                 </div>
+
                 <div className="flex flex-col h-full bg-[#ece5dd]">
-                  <div
-                    ref={chatRef}
-                    className="flex-1 overflow-y-auto space-y-4 p-4"
-                    style={{ scrollbarWidth: 'none', scrollBehavior: 'smooth' }}
-                  >
-                    <div className="bg-white pt-3 pb-1 px-3 rounded-lg rounded-tl-none max-w-[80%] shadow-sm">
-                      <p className="text-sm">Oi! Quero agendar uma consulta</p>
-                      <p className="text-[10px] text-gray-500 text-right">10:30</p>
-                    </div>
-                    <div className="bg-[#d9fdd3] p-3 rounded-lg rounded-tr-none ml-auto max-w-[80%] shadow-sm">
-                      <p className="text-sm">
-                        Olá! Tudo bem? Eu sou a Marcela, aqui da Clínica Integral Care.<br />
-                        Me conte, é sua primeira consulta com a gente?
-                      </p>
-                      <div className="flex items-center justify-end gap-1 mt-1">
-                        <p className="text-[10px] text-gray-500">10:31</p>
-                        <CheckCheck size={12} className="text-[#34b7f1]" />
-                      </div>
-                    </div>
-                    <div className="bg-white pt-3 pb-1 px-3 rounded-lg rounded-tl-none max-w-[80%] shadow-sm">
-                      <p className="text-sm">Sim, primeira vez. Tem pra sexta?</p>
-                      <p className="text-[10px] text-gray-500 text-right">10:32</p>
-                    </div>
-                    <div className="bg-[#d9fdd3] p-3 rounded-lg rounded-tr-none ml-auto max-w-[80%] shadow-sm">
-                      <p className="text-sm">
-                        Legal! Tenho horário com o Dr. Paulo na sexta às 16h ou 17:15. Qual horário prefere?
-                      </p>
-                      <div className="flex items-center justify-end gap-1 mt-1">
-                        <p className="text-[10px] text-gray-500">10:32</p>
-                        <CheckCheck size={12} className="text-[#34b7f1]" />
-                      </div>
-                    </div>
-                    <div className="bg-white p-2 rounded-lg rounded-tl-none max-w-[80%] shadow-sm">
+                  <div ref={chatRef} className="flex-1 overflow-y-auto space-y-4 p-4" style={{ scrollbarWidth: 'none', scrollBehavior: 'smooth' }}>
+                    {[
+                      { sender: 'client', text: 'Oi! Quero agendar uma consulta', time: '14:00' },
+                      { sender: 'agent', text: `Olá! Tudo bem? Eu sou a Isabela, aqui da Integral Care.\nÉ a sua primeira consulta com a gente?`, time: '14:01' },
+                      { sender: 'client', text: 'Sim, primeira vez. Tem horário pra sexta?', time: '14:01' },
+                      { sender: 'agent', text: 'Legal! Tenho horário com o Dr. Paulo na sexta às 16h ou 17:15. Qual horário prefere? :)', time: '14:02' },
+                      { sender: 'client', text: '', time: '14:02', audio: true },
+                      { sender: 'agent', text: 'Sim, sexta é uma correria mesmo Marcela! Vamos de manhã, tenho na terça às 9h ou 11:15h. Qual fica melhor?', time: '14:03' },
+                      { sender: 'client', text: '11:15 fica bom', time: '14:03' },
+                      { sender: 'agent', text: 'Fechado! Me manda seu nome completo por favor, e o seu email tb', time: '14:04' },
+                      { sender: 'client', text: 'Marcela da Silva\nmarceladasilva@gmail.com', time: '14:04' },
+                      { sender: 'agent', text: 'Fechado Marcela, já coloquei na agenda do Dr.!', time: '14:05' },
+                      { sender: 'agent', text: `<strong>$1</strong>\n**Data:** 05/Ago - Terça\n**Horário:** 11:15\n**Nome:** Marcela da Silva\n**Email:** m.dasilva@gmail.com\n\n**Nosso Endereço:**\n\nAv. Paulista 534 - Sala 65\nBela Vista, São Paulo - SP, 
+
+menos de 5 min andando da estação Trianon MASP`, time: '14:05' },
+                      { sender: 'client', text: 'Blz! Obrigada', time: '14:06' },
+                      { sender: 'agent', text: 'Magina, foi um prazer\nAté logo :)', time: '14:06' }
+                    ].map((msg, index) => (
                       <div
-                        className="flex items-center gap-2 bg-gray-100 rounded-full px-3 py-2 cursor-pointer"
-                        onClick={toggleAudio}
+                        key={index}
+                        className={`${msg.sender === 'client' ? 'bg-white rounded-tl-none' : 'bg-[#d9fdd3] rounded-tr-none ml-auto'} p-3 rounded-lg max-w-[80%] shadow-sm whitespace-pre-line`}
                       >
-                        {isPlaying ? (
-                          <Pause size={18} className="text-gray-600" />
+                        {msg.audio ? (
+                          <div className="flex items-center gap-2 bg-gray-100 rounded-full px-3 py-2 cursor-pointer" onClick={toggleAudio}>
+                            {isPlaying ? <Pause size={18} className="text-gray-600" /> : <Play size={18} className="text-gray-600" />}
+                            <div className="w-32 h-1 bg-gray-300 rounded-full relative">
+                              <div className="absolute top-0 left-0 h-1 bg-gray-500 rounded-full" style={{ width: `${(currentTime / duration) * 100 || 0}%` }}></div>
+                            </div>
+                            <span className="text-xs text-gray-500">{formatTime(currentTime)}</span>
+                            <audio ref={audioRef} src="/sample/Sample_Audio_Whatsapp.mp3"></audio>
+                          </div>
                         ) : (
-                          <Play size={18} className="text-gray-600" />
+                          <p className="text-sm">{msg.text}</p>
                         )}
-                        <div className="w-32 h-1 bg-gray-300 rounded-full relative">
-                          <div
-                            className="absolute top-0 left-0 h-1 bg-gray-500 rounded-full"
-                            style={{ width: `${(currentTime / duration) * 100 || 0}%` }}
-                          ></div>
+                        <div className="flex items-center justify-end gap-1 mt-1">
+                          <p className="text-[10px] text-gray-500">{msg.time}</p>
+                          {msg.sender === 'agent' && <CheckCheck size={12} className="text-[#34b7f1]" />}
                         </div>
-                        <span className="text-xs text-gray-500">{formatTime(currentTime)}</span>
-                        <audio ref={audioRef} src="/sample/Sample_Audio_Whatsapp.mp3"></audio>
                       </div>
-                      <p className="text-[10px] text-gray-500 text-right mt-1">10:33</p>
-                    </div>
-                    <div className="bg-[#d9fdd3] p-3 rounded-lg rounded-tr-none ml-auto max-w-[80%] shadow-sm">
-                      <p className="text-sm">
-                        Sim, sexta é uma correria mesmo! Vamos de manhã, vou ter na terça às 9h ou 11:15h. Qual destes fica melhor?
-                      </p>
-                      <div className="flex items-center justify-end gap-1 mt-1">
-                        <p className="text-[10px] text-gray-500">10:34</p>
-                        <CheckCheck size={12} className="text-[#34b7f1]" />
-                      </div>
-                    </div>
+                    ))}
                   </div>
+
                   <div className="flex items-center bg-[#f0f2f5] p-2 border-t border-gray-200">
                     <div className="w-full h-10 bg-white rounded-full px-4 flex items-center text-sm text-gray-400">
                       Digite uma mensagem...
