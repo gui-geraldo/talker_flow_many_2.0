@@ -172,7 +172,6 @@ const HeroSection: React.FC = () => {
                   <div ref={chatRef} className="flex-1 overflow-y-auto space-y-4 p-4" style={{ scrollbarWidth: 'none', scrollBehavior: 'smooth' }}>
                     {messages.map((msg, index) => (
                       <div
-                        style={{ animation: `fadeIn 0.8s ease ${index * 0.8}s forwards`, opacity: 0 }}
                         key={index}
                         className={`px-3 py-1.5 rounded-lg max-w-[80%] shadow-sm whitespace-pre-line ${msg.sender === 'client' ? 'bg-white rounded-tl-none self-start' : 'bg-[#d9fdd3] rounded-tr-none self-end ml-auto'}`}
                       >
@@ -214,18 +213,5 @@ const HeroSection: React.FC = () => {
     </section>
   );
 };
-
-<style jsx global>{`
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(10px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-`}</style>
 
 export default App;
