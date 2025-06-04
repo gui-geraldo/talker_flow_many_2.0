@@ -85,7 +85,7 @@ const HeroSection: React.FC = () => {
     { sender: 'agent', text: `Olá! Tudo bem? Eu sou a Isabela, aqui da Integral Care.\nÉ a sua primeira consulta com a gente?`, time: '14:01' },
     { sender: 'client', text: 'Sim, primeira vez. Tem horário pra sexta?', time: '14:01' },
     { sender: 'agent', text: 'Legal! Tenho horário com o Dr. Paulo na sexta às 16h ou 17:15. Qual horário prefere? :)', time: '14:02' },
-    { sender: 'client', text: '', time: '14:02', audio: true, audioSrc: 'public/sample/Sample_Audio_Whatsapp.mp3' },
+    { sender: 'client', text: '', time: '14:02', audio: true, audioSrc: '/sample/Sample_Audio_Whatsapp.mp3' },
     { sender: 'agent', text: 'Sim, sexta é uma correria mesmo Marcela! Vamos de manhã, tenho na terça às 9h ou 11:15h. Qual fica melhor?', time: '14:03' },
     { sender: 'client', text: '11:15 fica bom', time: '14:03' },
     { sender: 'agent', text: 'Fechado! Me manda seu nome completo por favor, e o seu email tb', time: '14:04' },
@@ -93,8 +93,7 @@ const HeroSection: React.FC = () => {
     { sender: 'agent', text: 'Fechado Marcela, já coloquei na agenda do Dr.!', time: '14:05' },
     {
       sender: 'agent',
-      text: `<strong>Consulta Agendada!</strong>\n\n<strong>Data:</strong> 05/Ago - Terça\n<strong>Horário:</strong> 11:15\n<strong>Nome:</strong> Marcela da Silva\n<strong>Email:</strong> m.silva@gmail.com\n\n<strong>Nosso Endereço:</strong>\nAv. Paulista 534, São Paulo - SP
-Menos de 5 min da estação Trianon MASP`,
+      text: `<strong>Consulta Agendada!</strong>\n\n<strong>Data:</strong> 05/Ago - Terça\n<strong>Horário:</strong> 11:15\n<strong>Nome:</strong> Marcela da Silva\n<strong>Email:</strong> m.silva@gmail.com\n\n<strong>Nosso Endereço:</strong>\nAv. Paulista 534, São Paulo - SP\nMenos de 5 min da estação Trianon MASP`,
       time: '14:05'
     },
     { sender: 'client', text: 'Blz! Obrigada', time: '14:06' },
@@ -156,7 +155,7 @@ Menos de 5 min da estação Trianon MASP`,
                   <div className="flex items-center">
                     <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center overflow-hidden">
                       <img 
-                        src="public/Whats_Profile_Photo.jpg" 
+                        src="/Whats_Profile_Photo.jpg" 
                         alt="Fernanda avatar" 
                         className="w-full h-full object-cover"
                         onError={(e) => (e.currentTarget.src = 'https://placehold.co/40x40/E0E0E0/757575?text=Error')} 
@@ -174,10 +173,10 @@ Menos de 5 min da estação Trianon MASP`,
                     {messages.map((msg, index) => (
                       <div
                         key={index}
-                        className={`p-3 rounded-lg max-w-[80%] shadow-sm whitespace-pre-line ${msg.sender === 'client' ? 'bg-white rounded-tl-none self-start' : 'bg-[#d9fdd3] rounded-tr-none self-end ml-auto'}`}
+                        className={`px-3 py-1.5 rounded-lg max-w-[80%] shadow-sm whitespace-pre-line ${msg.sender === 'client' ? 'bg-white rounded-tl-none self-start' : 'bg-[#d9fdd3] rounded-tr-none self-end ml-auto'}`}
                       >
                         {msg.audio && msg.audioSrc ? (
-                          <div className="flex items-center gap-2 bg-gray-100 rounded-full px-3 py-2 cursor-pointer" onClick={toggleAudio}>
+                          <div className="flex items-center gap-2 bg-gray-100 rounded-full px-3 py-1.5 cursor-pointer" onClick={toggleAudio}>
                             {isPlaying ? <Pause size={18} className="text-gray-600" /> : <Play size={18} className="text-gray-600" />}
                             <div className="w-32 h-1 bg-gray-300 rounded-full relative">
                               <div className="absolute top-0 left-0 h-1 bg-gray-500 rounded-full" style={{ width: `${(currentTime / (duration || 1)) * 100}%` }}></div>
