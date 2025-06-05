@@ -1,145 +1,93 @@
-
 import React from 'react';
-import { Calendar, MessageSquare, Bell } from 'lucide-react';
+import { Calendar, MessageSquare, Target, RefreshCcw, Shield, TrendingUp } from 'lucide-react';
 
 const ComoFuncionaSection: React.FC = () => {
-  const steps = [
-    {
-      id: 1,
-      title: "Clínica envia horários disponíveis",
-      description: "Basta informar os horários disponíveis dos profissionais da clínica e o sistema está pronto para gerenciar automaticamente.",
-      icon: Calendar,
-      color: "bg-blue-100"
-    },
-    {
-      id: 2,
-      title: "Agente conversa com pacientes",
-      description: "O agente de conversação interage naturalmente com os pacientes, confirma dados e registra o agendamento no sistema automaticamente.",
-      icon: MessageSquare,
-      color: "bg-purple-100"
-    },
-    {
-      id: 3,
-      title: "Notificações para sua equipe",
-      description: "Você e sua equipe são notificados de todas as consultas agendadas por email ou WhatsApp, da forma que preferir.",
-      icon: Bell,
-      color: "bg-green-100"
-    }
-  ];
-
   return (
-    <section id="como-funciona" className="section-padding bg-gradient-to-b from-white to-blue-50/30">
-      <div className="container-custom">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-extrabold mb-4 text-neutral-dark">
-            Como Funciona
+    <section id="como-funciona" className="py-20 bg-white">
+      <div className="container mx-auto px-4">
+        <div className="text-center mb-16 animate-fade-in">
+          <h2 className="text-4xl font-bold text-neutral-dark mb-4">
+            Duas soluções, resultados imediatos
           </h2>
-          <p className="text-lg text-neutral-dark/70 max-w-2xl mx-auto">
-            Do agendamento manual à liberdade total em apenas três passos simples
+          <p className="text-xl text-neutral-dark/70 max-w-2xl mx-auto">
+            Escolha a ferramenta ideal para cada momento da jornada do seu cliente
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
-          {steps.map((step) => (
-            <div key={step.id} className="glass-effect rounded-xl p-6 shadow-lg animate-fade-in transform transition-all duration-300 hover:-translate-y-2">
-              <div className="flex items-center mb-6">
-                <div className={`w-12 h-12 ${step.color} rounded-full flex items-center justify-center mr-4`}>
-                  <step.icon className="text-primary" size={24} />
-                </div>
-                <span className="text-4xl font-extrabold text-primary">
-                  {step.id}
-                </span>
-              </div>
-              <h3 className="text-xl font-bold mb-3 text-neutral-dark">
-                {step.title}
-              </h3>
-              <p className="text-neutral-dark/70">
-                {step.description}
-              </p>
+        <div className="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto">
+          {/* Talker Flow Lead */}
+          <div className="bg-gradient-to-br from-blue-100 to-blue-50 rounded-2xl p-8 border border-blue-200 backdrop-blur-sm transform transition-transform duration-300 hover:-translate-y-2 shadow-md">
+            <div className="flex items-center space-x-3 mb-6">
+              <Target className="h-8 w-8 text-blue-600" />
+              <h3 className="text-2xl font-bold text-blue-900">Talker Flow Lead</h3>
             </div>
-          ))}
-        </div>
 
-        <div className="mt-16 p-8 bg-white/70 backdrop-blur-sm rounded-xl shadow-lg border border-gray-100">
-          <h3 className="text-2xl font-bold mb-4 text-center">Libere sua equipe de tarefas repetitivas</h3>
-          <div className="grid md:grid-cols-2 gap-8 items-center">
-            <div>
-              <p className="text-lg mb-4">Sua equipe perde tempo precioso respondendo perguntas repetitivas como:</p>
-              <ul className="space-y-3">
-                <li className="flex items-start">
-                  <span className="bg-red-100 text-red-600 rounded-full p-1 mr-2 mt-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                  </span>
-                  <span>"Qual o endereço da clínica?"</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="bg-red-100 text-red-600 rounded-full p-1 mr-2 mt-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                  </span>
-                  <span>"Quais horários estão disponíveis?"</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="bg-red-100 text-red-600 rounded-full p-1 mr-2 mt-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                  </span>
-                  <span>"Atende convênio?"</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="bg-red-100 text-red-600 rounded-full p-1 mr-2 mt-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                  </span>
-                  <span>"Tem estacionamento?"</span>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <div className="bg-gradient-to-r from-primary to-blue-600 text-white p-6 rounded-lg shadow-lg">
-                <h4 className="text-xl font-bold mb-3">Com o Many Tasks</h4>
-                <p className="mb-4">Seu assistente automatizado responde a todas essas perguntas instantaneamente, enquanto sua equipe foca no que realmente importa: o cuidado com os pacientes.</p>
-                <div className="flex items-center">
-                  <span className="bg-white text-primary rounded-full p-1 mr-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                  </span>
-                  <span className="font-medium">Economia de tempo</span>
-                </div>
-                <div className="flex items-center mt-2">
-                  <span className="bg-white text-primary rounded-full p-1 mr-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                  </span>
-                  <span className="font-medium">Disponível 24h por dia</span>
-                </div>
-                <div className="flex items-center mt-2">
-                  <span className="bg-white text-primary rounded-full p-1 mr-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                  </span>
-                  <span className="font-medium">Mais produtividade</span>
-                </div>
+            <h4 className="text-xl font-semibold text-blue-700 mb-4">
+              "A primeira impressão é a que fica"
+            </h4>
+
+            <p className="text-blue-800 mb-2 font-medium">
+              Transforme cada interação em um momento UAU
+            </p>
+
+            <p className="text-blue-900/80 mb-6">
+              SDR automatizado que atende seus leads via WhatsApp, qualifica interessados,
+              agenda reuniões no seu calendário e até fecha vendas. Sua primeira impressão
+              será sempre perfeita.
+            </p>
+
+            <div className="space-y-4">
+              <div className="flex items-start space-x-3">
+                <MessageSquare className="h-5 w-5 text-blue-600 mt-1" />
+                <span className="text-blue-900">Resposta imediata para leads, 24 × 7</span>
+              </div>
+              <div className="flex items-start space-x-3">
+                <Target className="h-5 w-5 text-blue-600 mt-1" />
+                <span className="text-blue-900">Qualificação inteligente que filtra oportunidades</span>
+              </div>
+              <div className="flex items-start space-x-3">
+                <Calendar className="h-5 w-5 text-blue-600 mt-1" />
+                <span className="text-blue-900">Agendamento automático direto na sua agenda</span>
+              </div>
+              <div className="flex items-start space-x-3">
+                <TrendingUp className="h-5 w-5 text-blue-600 mt-1" />
+                <span className="text-blue-900">Capacidade de fechar vendas automaticamente</span>
               </div>
             </div>
           </div>
-        </div>
 
-        <div className="mt-12 text-center">
-          <a href="#diferenciais" className="text-primary font-semibold inline-flex items-center hover:underline">
-            Conheça nossos diferenciais
-            <svg className="w-5 h-5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
-            </svg>
-          </a>
+          {/* Talker Flow Loop */}
+          <div className="bg-gradient-to-br from-purple-100 to-purple-50 rounded-2xl p-8 border border-purple-200 backdrop-blur-sm transform transition-transform duration-300 hover:-translate-y-2 shadow-md">
+            <div className="flex items-center space-x-3 mb-6">
+              <RefreshCcw className="h-8 w-8 text-purple-600" />
+              <h3 className="text-2xl font-bold text-purple-900">Talker Flow Loop</h3>
+            </div>
+
+            <h4 className="text-xl font-semibold text-purple-700 mb-4">
+              "Seu cliente nunca mais fica sem resposta."
+            </h4>
+
+            <p className="text-purple-900/80 mb-6">
+              Assistente de suporte e pós-venda que responde dúvidas frequentes,
+              envia tutoriais, informa status de pedidos e muito mais — tudo de forma
+              automática, 24 horas por dia.
+            </p>
+
+            <div className="space-y-4">
+              <div className="flex items-start space-x-3">
+                <MessageSquare className="h-5 w-5 text-purple-600 mt-1" />
+                <span className="text-purple-900">FAQs, tutoriais e status de pedido em tempo real</span>
+              </div>
+              <div className="flex items-start space-x-3">
+                <Shield className="h-5 w-5 text-purple-600 mt-1" />
+                <span className="text-purple-900">Libera o time humano para casos complexos</span>
+              </div>
+              <div className="flex items-start space-x-3">
+                <RefreshCcw className="h-5 w-5 text-purple-600 mt-1" />
+                <span className="text-purple-900">Ciclo contínuo de atendimento e suporte</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>

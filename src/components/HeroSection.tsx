@@ -93,8 +93,7 @@ const HeroSection: React.FC = () => {
     { sender: 'agent', text: 'Fechado Marcela, já coloquei na agenda do Dr.!', time: '14:05' },
     {
       sender: 'agent',
-      text: `<strong>Consulta Agendada!</strong>\n\n<strong>Data:</strong> 05/Ago - Terça\n<strong>Horário:</strong> 11:15\n<strong>Nome:</strong> Marcela da Silva\n<strong>Email:</strong> m.silva@gmail.com\n\n<strong>Nosso Endereço:</strong>\nAv. Paulista 534, São Paulo - SP\nMenos de 5 min da estação Trianon MASP`,
-      time: '14:05'
+      text: `<strong>Consulta Agendada!</strong>\n\n<strong>Data:</strong> 05/Ago - Terça\n<strong>Horário:</strong> 11:15\n<strong>Nome:</strong> Marcela da Silva\n<strong>Email:</strong> m.silva@gmail.com\n\n<strong>Nosso Endereço:</strong>\nAv. Paulista 534, São Paulo\nMenos de 5 min da estação Trianon MASP`,      time: '14:05'
     },
     { sender: 'client', text: 'Blz! Obrigada', time: '14:06' },
     { sender: 'agent', text: 'Magina, foi um prazer\nAté logo :)', time: '14:06' }
@@ -162,7 +161,7 @@ const HeroSection: React.FC = () => {
                       />
                     </div>
                     <div className="ml-3">
-                      <p className="font-medium">Fernanda Paciente</p>
+                      <p className="font-medium">Marcela Paciente</p>
                       <p className="text-xs text-white/80">Online</p>
                     </div>
                   </div>
