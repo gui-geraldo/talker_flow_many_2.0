@@ -4,25 +4,39 @@ import { ArrowLeft, ArrowRight } from 'lucide-react';
 const DepoimentosSection: React.FC = () => {
   const depoimentos = [
     {
-      nome: "Dr. Carlos Silva",
-      especialidade: "Dentista",
+      nome: "Rodrigo",
+      especialidade: "Consultoria de Marketing • São Paulo",
       cidade: "São Paulo",
-      foto: "/testimonial_icon/carlos-silva.jpg",
-      texto: "Passamos de 4 horas diárias no telefone para quase zero. O agente de IA até consegue encaixar pacientes de última hora quando há cancelamentos."
+      foto: "/testimonial_icon/carlos-marketing.webp",
+      texto: "Meu comercial simplemente triplicou. O SDR da Talker Flow qualifica e filtra todos os leads em tempo real, e meu time comercial só entra em campo pra fechar os mais qualificados. Antes falavam com 20 leads frios pra fechar 2. Agora a IA fala com 100, qualifica 30 e fechamos 10"
     },
     {
-      nome: "Dra. Marta Ribeiro",
-      especialidade: "Implantodontia",
+      nome: "Paulo",
+      especialidade: "Contador",
+      cidade: "Belo Horizonte",
+      foto: "/testimonial_icon/paulo-contador.webp",
+      texto: "Já tive cliente que às 3 da manhã agendou uma reunião pra assinar o contrato no dia seguinte. Quando acordei vi confirmação do agendamento. Se não fosse pela TalkerFlow, com certeza teria mandado mensagens pra mais 20 escritórios."
+    },
+    {
+      nome: "Dra. Marta",
+      especialidade: "Implantodontista",
       cidade: "Manaus",
-      foto: "/testimonial_icon/marta-ribeiro.jpg",
+      foto: "/testimonial_icon/marta-dentista.webp",
       texto: "Impressionante como simplesmente não há fila. O paciente manda mensagem 14:00, às 14:01 ele é atendido e em 5 minutos a consulta está marcada."
     },
     {
-      nome: "Dr. Paulo Mendes",
-      especialidade: "Clínico Geral",
-      cidade: "Belo Horizonte",
-      foto: "/testimonial_icon/paulo-mendes.jpg",
-      texto: "Já tive um paciente que agendou consulta às 3 da manhã de um domingo. Quando acordei vi a notificação de agendamento confirmado. Se não fosse pela automação, com certeza teria agendado com outra clínica."
+      nome: "Fernanda",
+      especialidade: "Designer Gráfico",
+      cidade: "São Paulo",
+      foto: "/testimonial_icon/fernanda-designer.webp",
+      texto: "Antes eu perdia horas do meu dia só respondendo mensagens de novos clientes, quase sempre com as mesmas  perguntas. Agora a Talker Flow faz tudo isso por mim. Quando o cliente chega até mim, já sabe o valor, o prazo e as vezes até já pagou!. Eu só foco em criar."
+    },
+    {
+      nome: "Guilherme",
+      especialidade: "Gestor de Imobiliária",
+      cidade: "São Paulo",
+      foto: "/testimonial_icon/guilherme-imobiliaria.webp",
+      texto: "Os corretores as vezes demoravam para responder, e o cliente ficava esperando e reclamava. Agora a Talker Flow responde eles na hora, apresenta algumas opções de imóveis, passa valores, condições de pagamento e localização. Quando o corretor entrana conversa o cliente já está quase decidido "
     }
   ];
 
