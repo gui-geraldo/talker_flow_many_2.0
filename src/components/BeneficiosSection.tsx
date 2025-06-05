@@ -1,49 +1,45 @@
-
 import React from 'react';
-import { ArrowDown, ArrowUp, Clock } from 'lucide-react';
+import { CheckCircle, TrendingUp, DollarSign } from 'lucide-react';
 
 const BeneficiosSection: React.FC = () => {
   const beneficios = [
     {
-      title: "Tempo de secretárias em triagem",
+      title: "menos tempo em tarefas repetitivas",
       value: "70%",
-      description: "Redução no tempo gasto em atendimentos de agendamento",
-      icon: ArrowDown,
+      description: "Reduza drasticamente o tempo gasto com triagens, agendamentos repetitivos e dúvidas frequentes",
+      icon: CheckCircle,
       color: "text-secondary"
     },
     {
-      title: "Aumento na ocupação de agenda",
+      title: "de aumento na conversão de leads",
       value: "25%",
-      description: "Mais consultas agendadas, menos horários ociosos",
-      icon: ArrowUp,
+      description: "Resposta em segundos e abordagem inteligente fecham mais vendas e marca mais agendamentos.",
+      icon: TrendingUp,
       color: "text-primary"
     },
     {
-      title: "Retorno do investimento",
-      value: "3 Pacientes",
-      description: "3 pacientes a mais que agendar, já cobrem o investimento",
-      icon: Clock,
+      title: "que fecham a mais, pagam a operação",
+      value: "3 clientes",
+      description: "Se apenas 3 clientes a mais fecharem por mês, seu investimento já está pago.",
+      icon: DollarSign,
       color: "text-purple-500"
     }
   ];
 
   return (
-    <section id="beneficios" className="section-padding bg-white">
+    <section id="beneficios" className="pt-8 pb-4 bg-white">
       <div className="container-custom">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-extrabold mb-4 text-neutral-dark">
-            Benefícios Quantificados
+            Benefícios Quantificáveis
           </h2>
-          <p className="text-lg text-neutral-dark/70 max-w-2xl mx-auto">
-            Resultados reais de clínicas que já usam o Many Tasks
-          </p>
         </div>
 
         <div className="grid md:grid-cols-3 gap-8">
           {beneficios.map((item, index) => (
             <div 
               key={index} 
-              className="text-center p-8 rounded-xl border border-neutral-background animate-fade-in"
+              className="text-center p-8 rounded-xl border border-neutral-background animate-fade-in hover:shadow-md hover:scale-[1.02] transition-transform duration-300"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               <div className="mb-6">
