@@ -5,18 +5,18 @@ import { Clock, MessageSquare, Users, Calendar } from 'lucide-react';
 const DiferenciaisSection: React.FC = () => {
   const diferenciais = [
     {
-      title: "24 Horas /365 Dias",
-      description: "Nossa IA trabalha ininterruptamente, gerando uma experiência consistente para pacientes a qualquer momento do dia ou da noite.",
+      title: "24 Horas / 365 Dias",
+      description: "Nossa IA trabalha ininterruptamente, gerando uma experiência consistente a qualquer momento do dia ou da noite.",
       icon: Clock
     },
     {
-      title: "Interpreta texto, áudio e emojis",
+      title: "Áudio, Texto e Emojis",
       description: "Compreensão avançada de linguagem natural, incluindo mensagens de voz e expressões comuns em apps de mensagem.",
       icon: MessageSquare
     },
     {
-      title: "Poliglota: 24 idiomas",
-      description: "Atendimento em múltiplos idiomas, permitindo que sua clínica atenda pacientes estrangeiros sem barreiras de comunicação.",
+      title: "24 Idiomas",
+      description: "Atendimento em múltiplos idiomas, converse com seus clientes em sua própria língua, sem barreiras de comunicação.",
       icon: Users
     },
   ];
