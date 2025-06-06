@@ -47,9 +47,9 @@ const Footer: React.FC = () => {
         </div>
 
         {/* Rodapé inferior */}
-        <div className="text-center">
-            <p className="text-white/50 text-sm">
-              <p className="text-white/50 text-sm">
+        <div className="w-full text-center">
+          <div className="text-white/50 text-sm">
+            <p className="text-white/50 text-sm mb-4 md:mb-0">
               © {new Date().getFullYear()} Talker Flow. Todos os direitos reservados.
             </p>
           </div>
