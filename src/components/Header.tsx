@@ -43,7 +43,7 @@ const Header: React.FC = () => {
         </div>
         
         <a href="#contato" className="hidden md:block btn-primary">
-          Solicitar Demonstração
+          Fale com a gente
         </a>
         
         <button 
