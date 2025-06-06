@@ -44,7 +44,8 @@ const ContatoSection: React.FC = () => {
       return;
     }
 
-    // Redirecionamento para WhatsApp (simulado)
+    /*
+    // Redirecionamento para WhatsApp (simulado) provisóriamente desativado
     const whatsappNumber = "5521988013301";
     const message = `Olá! Sou ${formData.nome} da ${formData.empresa} e gostaria de iniciar com a Talker Flow.`;
     const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
@@ -52,6 +53,9 @@ const ContatoSection: React.FC = () => {
     toast({
       title: "Redirecionando para WhatsApp...",
       description: "Você será conectado com um consultor.",
+
+      */
+
     });
 
     // Reset do formulário
@@ -163,7 +167,7 @@ const ContatoSection: React.FC = () => {
                 type="submit"
                 className="w-full relative overflow-hidden group bg-gradient-to-r from-primary to-primary/80 text-white font-semibold py-4 px-6 rounded-lg flex items-center justify-center gap-2 transition-all duration-300 hover:shadow-lg hover:shadow-primary/30 hover:scale-[1.02]"
               >
-                <span>Quero automatizar meus agendamentos</span>
+                <span>Enviar!</span>
                 <Send size={18} className="transition-all duration-300 group-hover:translate-x-1" />
                 <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:animate-[shine_1.5s_ease-in-out]"></div>
               </button>
