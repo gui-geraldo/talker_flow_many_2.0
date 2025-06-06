@@ -58,7 +58,7 @@ const ContatoSection: React.FC = () => {
       email: '',
       comentario: ''
     });
-  };
+  }
 
   return (
     <section id="contato" className="section-padding bg-gradient-to-br from-primary/5 to-secondary/5">
