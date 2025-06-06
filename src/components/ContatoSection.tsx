@@ -73,7 +73,7 @@ const ContatoSection: React.FC = () => {
             <span className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-primary to-secondary rounded-full"></span>
           </h2>
           <p className="text-lg text-neutral-dark/70 max-w-2xl mx-auto">
-            Será uma prazer conversar!
+            Será um prazer conversar!
           </p>
         </div>
 
