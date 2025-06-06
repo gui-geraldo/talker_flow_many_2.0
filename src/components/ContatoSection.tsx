@@ -33,7 +33,7 @@ const ContatoSection: React.FC = () => {
 
       toast({
         title: "Solicitação enviada!",
-        description: "Em breve entraremos em contato para agendar sua demonstração.",
+        description: "Em breve entraremos em contato!",
       });
     } catch (error) {
       toast({
@@ -173,13 +173,13 @@ const ContatoSection: React.FC = () => {
           <div className="flex flex-col justify-center">
             <div className="mb-8">
               <h3 className="text-2xl font-bold mb-6 text-neutral-dark">
-                Por que agendar uma demonstração?
+                Transforme conversas em resultados!
               </h3>
               <ul className="space-y-4">
                 <li className="flex items-start card-modern p-3 pl-4">
                   <div className="mr-4 mt-1 flex-shrink-0">
                     <div className="w-8 h-8 bg-primary/20 rounded-full flex items-center justify-center">
-                      <Check className="text-primary" size={16} />
+                      <Check className="text-fuchsia-500" size={16} />
                     </div>
                   </div>
                   <p className="mt-1">Funcionários focados no que realmente dá resultado
@@ -209,7 +209,7 @@ const ContatoSection: React.FC = () => {
                       <Check className="text-primary" size={16} />
                     </div>
                   </div>
-                  <p className="mt-1">Padronização na comunicação com todos os pacientes</p>
+                  <p className="mt-1">Padronização na comunicação com todos os clientes</p>
                 </li>
               </ul>
             </div>
@@ -219,7 +219,7 @@ const ContatoSection: React.FC = () => {
                 <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mr-3">
                   <Phone className="text-primary" size={20} />
                 </div>
-                <span>(11) 98801-3301</span>
+                <span>(11) 96601-3044</span>
               </div>
               <div className="flex items-center hover:scale-105 transition-transform duration-300">
                 <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mr-3">
