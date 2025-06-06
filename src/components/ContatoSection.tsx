@@ -58,8 +58,15 @@ const ContatoSection: React.FC = () => {
       email: '',
       comentario: ''
     });
+
+      } catch (error) {
+    toast({
+      title: "Erro ao enviar formulário",
+      description: "Tente novamente mais tarde.",
+    });
+    console.error("Erro ao enviar dados:", error);
   }
-};
+}; // ✅ Fecha a função handleSubmit corretamente
 
   return (
     <section id="contato" className="section-padding bg-gradient-to-br from-primary/5 to-secondary/5">
