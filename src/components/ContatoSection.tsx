@@ -44,6 +44,7 @@ const ContatoSection: React.FC = () => {
       return;
     }
 
+    /*
     // Redirecionamento para WhatsApp (simulado)
     const whatsappNumber = "5521988013301";
     const message = `Olá! Sou ${formData.nome} da ${formData.empresa} e gostaria de iniciar com a Talker Flow.`;
@@ -52,7 +53,7 @@ const ContatoSection: React.FC = () => {
     toast({
       title: "Redirecionando para WhatsApp...",
       description: "Você será conectado com um consultor.",
-    });
+    });  */
 
     // Reset do formulário
     setFormData({
