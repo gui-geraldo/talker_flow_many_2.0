@@ -32,7 +32,7 @@ const FaqSection: React.FC = () => {
     <section className="pt-8 pb-8 bg-gradient-to-b from-blue-50/30 to-white">
       <div className="container-custom">
         <div className="text-center mb-10">
-          <h2 className="text-3xl md:text-4xl font-extrabold mb-4 text-gradient leading-snug">
+          <h2 className="text-3xl md:text-4xl font-extrabold mb-4 text-gradient pt-2">
             Perguntas Frequentes
           </h2>
         </div>
