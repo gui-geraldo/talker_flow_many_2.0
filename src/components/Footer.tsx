@@ -52,17 +52,6 @@ const Footer: React.FC = () => {
             <p className="text-white/50 text-sm mb-4 md:mb-0">
               © {new Date().getFullYear()} Talker Flow. Todos os direitos reservados.
             </p>
-            <div className="flex space-x-6">
-              <a href="#" className="text-white/50 text-sm hover:text-white transition-colors">
-                Política de Privacidade
-              </a>
-              <a href="#" className="text-white/50 text-sm hover:text-white transition-colors">
-                Termos de Uso
-              </a>
-              <a href="#" className="text-white/50 text-sm hover:text-white transition-colors">
-                LGPD
-              </a>
-            </div>
           </div>
         </div>
       </div>
