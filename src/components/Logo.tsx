@@ -1,5 +1,4 @@
 import React from 'react';
-import Image from 'next/image';
 
 interface LogoProps {
   variant?: 'default' | 'white';
@@ -9,13 +8,12 @@ interface LogoProps {
 const Logo: React.FC<LogoProps> = ({ variant = 'default', className = "" }) => {
   return (
     <div className={`flex items-center ${className}`}>
-      <Image
+      <img
         src="/logo.webp"
         alt="Logo Talker Flow"
         width={40}
         height={40}
         className="rounded-full"
-        priority
       />
       <span
         className={`ml-2 text-xl font-poppins font-extrabold ${
