@@ -8,14 +8,14 @@ const DepoimentosSection: React.FC = () => {
       especialidade: "Consultoria de Marketing • São Paulo",
       cidade: "São Paulo",
       foto: "/testimonial_icon/carlos-marketing.webp",
-      texto: "Meu comercial simplemente triplicou. O SDR da Talker Flow qualifica e filtra todos os leads em tempo real, e meu time comercial só entra em campo pra fechar os mais qualificados. Antes falavam com 20 leads frios pra fechar 2. Agora a IA fala com 100, qualifica 30 e fechamos 10"
+      texto: "Meu comercial simplemente triplicou. O SDR da Talker Flow qualifica e filtra todos os leads em tempo real, e meu time comercial só entra em campo pra fechar os mais qualificados. Antes falavam com 20 leads frios pra fechar 2. Agora a IA fala com 100, qualifica 30 e fechamos 10."
     },
     {
       nome: "Paulo",
       especialidade: "Contador",
       cidade: "Belo Horizonte",
       foto: "/testimonial_icon/paulo-contador.webp",
-      texto: "Já tive cliente que às 3 da manhã agendou uma reunião pra assinar o contrato no dia seguinte. Quando acordei vi confirmação do agendamento. Se não fosse pela TalkerFlow, com certeza teria mandado mensagens pra mais 20 escritórios."
+      texto: "Já tive cliente que às 3:00 da manhã agendou uma reunião pra assinar o contrato no dia seguinte. Quando acordei vi confirmação do agendamento. Se não fosse pela Talker Flow, com certeza teria mandado mensagens pra mais 20 escritórios."
     },
     {
       nome: "Dra. Marta",
@@ -29,14 +29,14 @@ const DepoimentosSection: React.FC = () => {
       especialidade: "Designer Gráfico",
       cidade: "São Paulo",
       foto: "/testimonial_icon/fernanda-designer.webp",
-      texto: "Antes eu perdia horas do meu dia só respondendo mensagens de novos clientes, quase sempre com as mesmas  perguntas. Agora a Talker Flow faz tudo isso por mim. Quando o cliente chega até mim, já sabe o valor, o prazo e as vezes até já pagou!. Eu só foco em criar."
+      texto: "Antes eu perdia horas do meu dia só respondendo mensagens de novos clientes, quase sempre com as mesmas  perguntas. Agora a Talker Flow faz tudo isso por mim. Quando o cliente chega até mim, já sabe o valor, o prazo e as vezes até já pagou! Eu só foco em criar."
     },
     {
       nome: "Guilherme",
       especialidade: "Gestor de Imobiliária",
       cidade: "São Paulo",
       foto: "/testimonial_icon/guilherme-imobiliaria.webp",
-      texto: "Os corretores as vezes demoravam para responder, e o cliente ficava esperando e reclamava. Agora a Talker Flow responde eles na hora, apresenta algumas opções de imóveis, passa valores, condições de pagamento e localização. Quando o corretor entrana conversa o cliente já está quase decidido "
+      texto: "Os corretores as vezes demoravam para responder, e o cliente ficava esperando e reclamava. Agora a Talker Flow responde eles na hora, apresenta algumas opções de imóveis, passa valores, condições de pagamento e localização. Quando o corretor entra na conversa o cliente já está quase decidido "
     }
   ];
 
@@ -51,15 +51,12 @@ const DepoimentosSection: React.FC = () => {
   };
 
   return (
-    <section className="section-padding bg-neutral-background">
+    <section className="bg-neutral-background pt-8 pb-4">
       <div className="container-custom">
-        <div className="text-center mb-16">
+        <div className="text-center mb-8">
           <h2 className="text-3xl md:text-4xl font-extrabold mb-4 text-neutral-dark">
             O que dizem nossos clientes
           </h2>
-          <p className="text-lg text-neutral-dark/70 max-w-2xl mx-auto">
-            Depoimentos de clínicas que já transformaram seu agendamento
-          </p>
         </div>
 
         <div className="relative max-w-4xl mx-auto">
