@@ -72,7 +72,11 @@ const ContatoSection: React.FC = () => {
             Ainda ficaram dúvidas?
             <span className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-primary to-secondary rounded-full"></span>
           </h2>
+          <p className="text-lg text-neutral-dark/70 max-w-2xl mx-auto">
+            Será uma prazer conversar!
+          </p>
         </div>
+
         <div className="grid md:grid-cols-2 gap-12">
           <div className="bg-white p-8 rounded-xl shadow-lg glass-effect animate-fade-in">
             <form onSubmit={handleSubmit}>
@@ -175,33 +179,37 @@ const ContatoSection: React.FC = () => {
                 <li className="flex items-start card-modern p-3 pl-4">
                   <div className="mr-4 mt-1 flex-shrink-0">
                     <div className="w-8 h-8 bg-primary/20 rounded-full flex items-center justify-center">
+                      <Check className="text-primary" size={16} />
                     </div>
                   </div>
-                  <p className="mt-1">✔️ Funcionários focados no que realmente dá resultado
+                  <p className="mt-1">Funcionários focados no que realmente dá resultado
 </p>
                 </li>
                 <li className="flex items-start card-modern p-3 pl-4">
                   <div className="mr-4 mt-1 flex-shrink-0">
                     <div className="w-8 h-8 bg-primary/20 rounded-full flex items-center justify-center">
+                      <Check className="text-primary" size={16} />
                     </div>
                   </div>
-                  <p className="mt-1">✔️ Nunca mais perca contatos que chegam fora do horário comercial
+                  <p className="mt-1">Nunca mais perca contatos que chegam fora do horário comercial
                   </p>
                 </li>
                 <li className="flex items-start card-modern p-3 pl-4">
                   <div className="mr-4 mt-1 flex-shrink-0">
                     <div className="w-8 h-8 bg-primary/20 rounded-full flex items-center justify-center">
+                      <Check className="text-primary" size={16} />
                     </div>
                   </div>
-                  <p className="mt-1">✔️ Atendimento 24h, como só as grandes empresas tem
+                  <p className="mt-1">Atendimento 24h, como só as grandes empresas tem
 </p>
                 </li>
                 <li className="flex items-start card-modern p-3 pl-4">
                   <div className="mr-4 mt-1 flex-shrink-0">
                     <div className="w-8 h-8 bg-primary/20 rounded-full flex items-center justify-center">
+                      <Check className="text-primary" size={16} />
                     </div>
                   </div>
-                  <p className="mt-1">✔️ Padronização na comunicação com todos os clientes</p>
+                  <p className="mt-1">Padronização na comunicação com todos os pacientes</p>
                 </li>
               </ul>
             </div>
@@ -211,7 +219,7 @@ const ContatoSection: React.FC = () => {
                 <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mr-3">
                   <Phone className="text-primary" size={20} />
                 </div>
-                <span>(11) 96601-3044</span>
+                <span>(11) 98801-3301</span>
               </div>
               <div className="flex items-center hover:scale-105 transition-transform duration-300">
                 <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mr-3">
