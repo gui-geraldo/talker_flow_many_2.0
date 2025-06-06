@@ -91,7 +91,7 @@ const Header: React.FC = () => {
               className="btn-primary mx-4"
               onClick={() => setIsMenuOpen(false)}
             >
-              Solicitar Demonstração
+              Fale com a gente
             </a>
           </div>
         </div>
