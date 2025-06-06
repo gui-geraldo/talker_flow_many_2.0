@@ -5,21 +5,21 @@ import { ChevronDown, ChevronUp } from 'lucide-react';
 const FaqSection: React.FC = () => {
   const faqs = [
     {
-      pergunta: "Quanto tempo leva para implementar o agente na minha clínica?",
+      pergunta: "Quanto tempo leva para implementar o agente na minha empresa?",
       resposta: "A implementação é rápida, geralmente entre 24 e 48 horas após a contratação. Nossa equipe configura o sistema de acordo com suas necessidades específicas e realiza um treinamento online com sua equipe."
     },
     {
-      pergunta: "O agente consegue lidar com situações complexas de agendamento?",
-      resposta: "Sim! O agente é treinado para lidar com situações como reagendamentos, cancelamentos, verificação de disponibilidade por especialidade ou profissional específico, e até mesmo priorizar urgências conforme regras da clínica."
+      pergunta: "O agente consegue lidar com situações complexas?",
+      resposta: "Sim! O agente é treinado para lidar com situações como reagendamentos, cancelamentos, passar informações, responder audios e emojis e até mesmo priorizar urgências conforme as suas regras."
     },
     {
-      pergunta: "Como é feito o treinamento do agente para o perfil da minha clínica?",
-      resposta: "Desenvolvemos um processo de personalização onde coletamos informações sobre protocolos de atendimento, tipos de serviços oferecidos, regras de agenda e tom de comunicação preferido. O agente é então ajustado para refletir a identidade e os procedimentos específicos da sua clínica."
+      pergunta: "Como é feito o treinamento do agente?",
+      resposta: "Desenvolvemos um processo de personalização onde coletamos informações sobre seus produtos e serviços, regras e tom de comunicação perfeito. O agente é então ajustado para refletir a identidade e os procedimentos específicos da sua empresa, como se fosse um novo funcionário."
     },
     {
-      pergunta: "Como garantir a privacidade dos dados dos pacientes?",
-      resposta: "O Many Tasks é 100% compatível com a LGPD. Utilizamos criptografia de ponta a ponta, armazenamento seguro e processos rigorosos de acesso a dados. Além disso, fornecemos toda a documentação necessária para conformidade legal da sua operação."
-    }
+      pergunta: "E se o cliente fizer perguntas fora do que foi treinado?",
+      resposta: "Sem problemas! Assim como um humano, ele é treinado  para lidar com situações inesperadas e redirecionar de forma natural. Quando necessário, ele encaminha a conversa para uma pessoa, e sinaliza ao seu time que precisa de intervenção."
+    },
   ];
 
   const [openIndex, setOpenIndex] = useState<number | null>(null);
@@ -29,15 +29,12 @@ const FaqSection: React.FC = () => {
   };
 
   return (
-    <section className="section-padding bg-gradient-to-b from-blue-50/30 to-white">
+    <section className="pt-8 pb-8 bg-gradient-to-b from-blue-50/30 to-white">
       <div className="container-custom">
-        <div className="text-center mb-16">
+        <div className="text-center mb-10">
           <h2 className="text-3xl md:text-4xl font-extrabold mb-4 text-gradient">
             Perguntas Frequentes
           </h2>
-          <p className="text-lg text-neutral-dark/70 max-w-2xl mx-auto">
-            Tire suas dúvidas sobre o Many Tasks
-          </p>
         </div>
 
         <div className="max-w-3xl mx-auto">
