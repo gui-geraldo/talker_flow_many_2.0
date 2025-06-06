@@ -23,27 +23,31 @@ const ContatoSection: React.FC = () => {
 
     // Enviar dados para o webhook do Make
     try {
-      const response = await fetch('/api/enviar-formulario', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(formData),
-    });
+      await fetch('https://hook.us2.make.com/vh4nrowuglpwslsyyvpjmty9idq9vjkd', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
 
-    if (!response.ok) {
-      throw new Error('Erro na resposta da API');
+      toast({
+        title: "Solicitação enviada!",
+        description: "Em breve entraremos em contato!",
+      });
+    } catch (error) {
+      toast({
+        title: "Erro ao enviar formulário",
+        description: "Tente novamente mais tarde.",
+      });
+      console.error("Erro ao enviar dados para o webhook:", error);
+      return;
     }
-
-    toast({
-      title: "Solicitação enviada!",
-      description: "Em breve entraremos em contato!",
-    });
 
     // Redirecionamento para WhatsApp (simulado)
     const whatsappNumber = "5521988013301";
-    const message = `Olá! Sou ${formData.nome} da ${formData.empresa} e gostaria de iniciar com a Talker Flow.`;
-    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+    const message = Olá! Sou ${formData.nome} da ${formData.empresa} e gostaria de iniciar com a Talker Flow.;
+    const whatsappUrl = https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)};
 
     toast({
       title: "Redirecionando para WhatsApp...",
@@ -58,15 +62,7 @@ const ContatoSection: React.FC = () => {
       email: '',
       comentario: ''
     });
-
-      } catch (error) {
-    toast({
-      title: "Erro ao enviar formulário",
-      description: "Tente novamente mais tarde.",
-    });
-    console.error("Erro ao enviar dados:", error);
-  }
-}; // ✅ Fecha a função handleSubmit corretamente
+  };
 
   return (
     <section id="contato" className="section-padding bg-gradient-to-br from-primary/5 to-secondary/5">
