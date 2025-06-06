@@ -29,7 +29,7 @@ const Logo: React.FC<LogoProps> = ({ variant = 'default', className = "" }) => {
         />
       </svg>
       <span className={`ml-2 text-xl font-poppins font-extrabold ${variant === 'white' ? 'text-white' : 'text-primary'}`}>
-        Many Tasks
+        Talker Flow
       </span>
     </div>
   );
