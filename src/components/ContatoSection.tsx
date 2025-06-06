@@ -23,26 +23,22 @@ const ContatoSection: React.FC = () => {
 
     // Enviar dados para o webhook do Make
     try {
-      await fetch('https://hook.us2.make.com/vh4nrowuglpwslsyyvpjmty9idq9vjkd', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
+      const response = await fetch('/api/enviar-formulario', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData),
+    });
 
-      toast({
-        title: "Solicitação enviada!",
-        description: "Em breve entraremos em contato!",
-      });
-    } catch (error) {
-      toast({
-        title: "Erro ao enviar formulário",
-        description: "Tente novamente mais tarde.",
-      });
-      console.error("Erro ao enviar dados para o webhook:", error);
-      return;
+    if (!response.ok) {
+      throw new Error('Erro na resposta da API');
     }
+
+    toast({
+      title: "Solicitação enviada!",
+      description: "Em breve entraremos em contato!",
+    });
 
     // Redirecionamento para WhatsApp (simulado)
     const whatsappNumber = "5521988013301";
