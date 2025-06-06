@@ -59,6 +59,7 @@ const ContatoSection: React.FC = () => {
       comentario: ''
     });
   }
+};
 
   return (
     <section id="contato" className="section-padding bg-gradient-to-br from-primary/5 to-secondary/5">
