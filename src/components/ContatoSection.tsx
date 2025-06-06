@@ -7,7 +7,7 @@ const ContatoSection: React.FC = () => {
   const { toast } = useToast();
   const [formData, setFormData] = useState({
     nome: '',
-    clinica: '',
+    empresa: '',
     whatsapp: '',
     email: '',
     comentario: ''
@@ -46,7 +46,7 @@ const ContatoSection: React.FC = () => {
 
     // Redirecionamento para WhatsApp (simulado)
     const whatsappNumber = "5521988013301";
-    const message = `Olá! Sou ${formData.nome} da ${formData.clinica} e gostaria de uma demonstração do Many Tasks.`;
+    const message = `Olá! Sou ${formData.nome} da ${formData.empresa} e gostaria de iniciar com a Talker Flow.`;
     const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
 
     toast({
@@ -57,7 +57,7 @@ const ContatoSection: React.FC = () => {
     // Reset do formulário
     setFormData({
       nome: '',
-      clinica: '',
+      empresa: '',
       whatsapp: '',
       email: '',
       comentario: ''
@@ -69,14 +69,10 @@ const ContatoSection: React.FC = () => {
       <div className="container-custom">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-extrabold mb-4 text-neutral-dark relative inline-block">
-            Solicite uma Demonstração
+            Ainda ficaram dúvidas?
             <span className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-primary to-secondary rounded-full"></span>
           </h2>
-          <p className="text-lg text-neutral-dark/70 max-w-2xl mx-auto">
-            Preencha o formulário e um especialista entrará em contato
-          </p>
         </div>
-
         <div className="grid md:grid-cols-2 gap-12">
           <div className="bg-white p-8 rounded-xl shadow-lg glass-effect animate-fade-in">
             <form onSubmit={handleSubmit}>
@@ -97,17 +93,17 @@ const ContatoSection: React.FC = () => {
               </div>
 
               <div className="mb-6">
-                <label htmlFor="clinica" className="block text-sm font-medium text-neutral-dark mb-2">
-                  Nome da Clínica
+                <label htmlFor="empresa" className="block text-sm font-medium text-neutral-dark mb-2">
+                  Nome da Empresa
                 </label>
                 <input
                   type="text"
-                  id="clinica"
-                  name="clinica"
-                  value={formData.clinica}
+                  id="empresa"
+                  name="empresa"
+                  value={formData.empresa}
                   onChange={handleChange}
                   className="w-full px-4 py-3 rounded-lg border border-neutral-background focus:outline-none focus:ring-2 focus:ring-primary/50"
-                  placeholder="Nome da sua clínica"
+                  placeholder="Nome da sua empresa"
                   required
                 />
               </div>
@@ -155,7 +151,7 @@ const ContatoSection: React.FC = () => {
                   onChange={handleChange}
                   rows={4}
                   className="w-full px-4 py-3 rounded-lg border border-neutral-background focus:outline-none focus:ring-2 focus:ring-primary/50"
-                  placeholder="Conte-nos um pouco sobre sua clínica e suas necessidades"
+                  placeholder="Conte-nos um pouco sobre sua empresa e suas necessidades"
                 />
               </div>
 
@@ -179,34 +175,33 @@ const ContatoSection: React.FC = () => {
                 <li className="flex items-start card-modern p-3 pl-4">
                   <div className="mr-4 mt-1 flex-shrink-0">
                     <div className="w-8 h-8 bg-primary/20 rounded-full flex items-center justify-center">
-                      <Check className="text-primary" size={16} />
                     </div>
                   </div>
-                  <p className="mt-1">Demonstração personalizada para sua clínica</p>
+                  <p className="mt-1">✔️ Funcionários focados no que realmente dá resultado
+</p>
                 </li>
                 <li className="flex items-start card-modern p-3 pl-4">
                   <div className="mr-4 mt-1 flex-shrink-0">
                     <div className="w-8 h-8 bg-primary/20 rounded-full flex items-center justify-center">
-                      <Check className="text-primary" size={16} />
                     </div>
                   </div>
-                  <p className="mt-1">Veja o agente em ação com cenários do seu dia a dia</p>
+                  <p className="mt-1">✔️ Nunca mais perca contatos que chegam fora do horário comercial
+                  </p>
                 </li>
                 <li className="flex items-start card-modern p-3 pl-4">
                   <div className="mr-4 mt-1 flex-shrink-0">
                     <div className="w-8 h-8 bg-primary/20 rounded-full flex items-center justify-center">
-                      <Check className="text-primary" size={16} />
                     </div>
                   </div>
-                  <p className="mt-1">Consultoria sobre automação de processos</p>
+                  <p className="mt-1">✔️ Atendimento 24h, como só as grandes empresas tem
+</p>
                 </li>
                 <li className="flex items-start card-modern p-3 pl-4">
                   <div className="mr-4 mt-1 flex-shrink-0">
                     <div className="w-8 h-8 bg-primary/20 rounded-full flex items-center justify-center">
-                      <Check className="text-primary" size={16} />
                     </div>
                   </div>
-                  <p className="mt-1">Esclareça todas suas dúvidas com especialistas</p>
+                  <p className="mt-1">✔️ Padronização na comunicação com todos os clientes</p>
                 </li>
               </ul>
             </div>
@@ -216,13 +211,13 @@ const ContatoSection: React.FC = () => {
                 <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mr-3">
                   <Phone className="text-primary" size={20} />
                 </div>
-                <span>(11) 98801-3301</span>
+                <span>(11) 96601-3044</span>
               </div>
               <div className="flex items-center hover:scale-105 transition-transform duration-300">
                 <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mr-3">
                   <Mail className="text-primary" size={20} />
                 </div>
-                <span>contato@manytasks.net</span>
+                <span>contato@talkerflow.me</span>
               </div>
             </div>
           </div>
