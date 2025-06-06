@@ -13,10 +13,10 @@ import Footer from '@/components/Footer';
 
 const Index = () => {
   // Atualizando metadados da página para SEO
-  document.title = "Many Tasks | Agente de IA para Agendamento Médico";
+  document.title = "Talker Flow | SDR e Agente de IA para conversas com clientes";
   document.querySelector('meta[name="description"]')?.setAttribute(
     "content", 
-    "Automatize agendamentos médicos 24/7 via WhatsApp. Reduza faltas em até 40% e libere sua equipe. Integração simples com seu sistema atual."
+    "Conversas inteligentes no WhatsApp que qualificam leads, resolvem dúvidas e constroem relações de confiança em diálogos humanos, 24 horas por dia."
   );
 
   // Schema.org para SEO
@@ -24,7 +24,7 @@ const Index = () => {
     const schema = {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
-      "name": "Many Tasks Agente de Agendamento",
+      "name": "Talker Flow Agentes de Atendimento",
       "applicationCategory": "BusinessApplication",
       "operatingSystem": "Web",
       "offers": {
@@ -34,9 +34,9 @@ const Index = () => {
       },
       "provider": {
         "@type": "LocalBusiness",
-        "name": "Many Tasks",
-        "email": "contato@manytasks.com.br",
-        "telephone": "+5521988013301",
+        "name": "Talker Flow",
+        "email": "contato@talkerflow.me",
+        "telephone": "+5511966013044",
         "address": {
           "@type": "PostalAddress",
           "addressCountry": "BR"
