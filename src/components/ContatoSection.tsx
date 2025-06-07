@@ -180,7 +180,7 @@ const ContatoSection: React.FC = () => {
                 <li className="flex items-start card-modern p-3 pl-4">
                   <div className="mr-4 mt-1 flex-shrink-0">
                     <div className="w-8 h-8 bg-primary/20 rounded-full flex items-center justify-center">
-                      <Check className="text-fuchsia-500" size={16} />
+                      <Check className="text-primary" size={16} />
                     </div>
                   </div>
                   <p className="mt-1">Funcionários focados no que realmente dá resultado
