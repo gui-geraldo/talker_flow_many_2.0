@@ -111,11 +111,8 @@ const HeroSection: React.FC = () => {
               Conversas inteligentes no WhatsApp que qualificam leads, resolvem dúvidas e constroem relações de confiança em diálogos humanos, 24 horas por dia.
             </p>
             <div className="flex flex-wrap gap-4 mb-12">
-              <a href="#contato" className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-full flex items-center gap-2 shadow-lg hover:shadow-blue-500/30 transition-all duration-300">
-                <span>Solicitar Demonstração</span> <CheckCheck size={18} />
-              </a>
-              <a href="#como-funciona" className="border-2 border-blue-600 text-blue-600 hover:bg-blue-600/10 font-semibold py-3 px-6 rounded-full transition-all duration-300">
-                Como Funciona
+              <a href="#como-funciona" className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-full flex items-center gap-2 shadow-lg hover:shadow-blue-500/30 transition-all duration-300">
+                <span>Como Funciona</span> <CheckCheck size={18} />
               </a>
             </div>
             <div className="flex flex-col sm:flex-row gap-4 sm:gap-8 bg-white/50 p-4 rounded-xl border border-blue-500/10">
