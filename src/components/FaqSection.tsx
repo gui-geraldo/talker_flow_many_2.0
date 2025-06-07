@@ -5,7 +5,7 @@ import { ChevronDown, ChevronUp } from 'lucide-react';
 const FaqSection: React.FC = () => {
   const faqs = [
     {
-      pergunta: "Quanto tempo leva para implementar o agente na minha empresa?",
+      pergunta: "Quanto tempo leva para implementar na minha empresa?",
       resposta: "A implementação é rápida, geralmente entre 24 e 48 horas após a contratação. Nossa equipe configura o sistema de acordo com suas necessidades específicas e realiza um treinamento online com sua equipe."
     },
     {

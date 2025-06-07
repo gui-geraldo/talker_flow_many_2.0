@@ -201,7 +201,7 @@ const ContatoSection: React.FC = () => {
                       <Check className="text-primary" size={16} />
                     </div>
                   </div>
-                  <p className="mt-1">Atendimento 24h, como só as grandes empresas tem
+                  <p className="mt-1">Atendimento 24h, como só as grandes empresas têm
 </p>
                 </li>
                 <li className="flex items-start card-modern p-3 pl-4">
