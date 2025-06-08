@@ -33,7 +33,7 @@ const Footer: React.FC = () => {
                   rel="noopener noreferrer"
                   className="text-white/70 hover:text-white transition-colors"
                 >
-                  (21) 98801-3301
+                  (11) 96601-3044
                 </a>
               </li>
               <li className="mt-4">
