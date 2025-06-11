@@ -132,7 +132,7 @@ const HeroSection: React.FC = () => {
               <div className="absolute -top-6 -left-6 w-16 h-16 bg-blue-500/10 rounded-full"></div>
               <div className="absolute -bottom-8 -right-8 w-24 h-24 bg-purple-500/10 rounded-full"></div>
 
-              <div className="relative mx-auto border-gray-800 bg-black border-[14px] rounded-[2.5rem] h-[540px] w-[260px] md:h-[640px] md:w-[310px] shadow-xl overflow-hidden scale-[1.00]">
+              <div className="relative mx-auto border-gray-800 bg-black border-[14px] rounded-[2.5rem] h-[540px] w-[260px] md:h-[640px] md:w-[310px] shadow-xl overflow-hidden scale-[1.1] md:scale-[0.9]">
                 <div className="absolute top-0 left-0 w-full px-4 pt-1 flex justify-between text-white text-xs font-normal z-40">
                   <span>09:41</span>
                   <div className="flex gap-1 items-center">
