@@ -13,8 +13,7 @@ const PlanosSection: React.FC = () => {
         "Apenas português",
         "Reconhece apenas texto",
         "1 usuário",
-        "Atendente sem auxílio",
-        "Suporte por e-mail"
+        "Atendente sem auxílio"
       ]
     },
     {
@@ -27,8 +26,7 @@ const PlanosSection: React.FC = () => {
         "24 idiomas",
         "Reconhece texto, áudio e emojis",
         "Até 5 usuários",
-        "Assistente particular do atendente",
-        "Suporte prioritário"
+        "Assistente particular do atendente"
       ]
     }
   ];
