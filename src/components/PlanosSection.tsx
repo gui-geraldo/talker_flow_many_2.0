@@ -9,7 +9,7 @@ const PlanosSection: React.FC = () => {
       periodo: "/mês",
       destaque: false,
       recursos: [
-        "Até 2.000 mensagens/mês",
+        "Até 5.000 mensagens/mês",
         "Apenas português",
         "Reconhece apenas texto",
         "Até 3 usuários"
