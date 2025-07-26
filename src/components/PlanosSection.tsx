@@ -25,7 +25,7 @@ const PlanosSection: React.FC = () => {
         "Mensagens ilimitadas",
         "24 idiomas",
         "Reconhece texto, áudio e emojis",
-        "Até 10 usuários",
+        "Até 15 usuários",
         "Assistente particular do atendente"
       ]
     }
