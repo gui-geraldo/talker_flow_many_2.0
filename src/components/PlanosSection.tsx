@@ -5,7 +5,7 @@ const PlanosSection: React.FC = () => {
   const planos = [
     {
       nome: "Essencial",
-      preco: "R$ 999,90",
+      preco: "R$ 599",
       periodo: "/mês",
       destaque: false,
       recursos: [
@@ -18,7 +18,7 @@ const PlanosSection: React.FC = () => {
     },
     {
       nome: "Pro",
-      preco: "R$ 1.399",
+      preco: "R$ 799",
       periodo: "/mês",
       destaque: true,
       recursos: [
