@@ -12,7 +12,7 @@ const PlanosSection: React.FC = () => {
         "Até 5.000 mensagens/mês",
         "Apenas português",
         "Reconhece apenas texto",
-        "Até 3 usuários"
+        "Até 3 usuários",
         "Atendente sem auxílio"
       ]
     },
