@@ -1,4 +1,4 @@
-import React from 'react';
+mimport React from 'react';
 import { Check, Star } from 'lucide-react';
 
 const PlanosSection: React.FC = () => {
@@ -12,7 +12,7 @@ const PlanosSection: React.FC = () => {
         "Até 2.000 mensagens/mês",
         "Apenas português",
         "Reconhece apenas texto",
-        "1 usuário",
+        "Até 3 usuários"
         "Atendente sem auxílio"
       ]
     },
@@ -25,7 +25,7 @@ const PlanosSection: React.FC = () => {
         "Mensagens ilimitadas",
         "24 idiomas",
         "Reconhece texto, áudio e emojis",
-        "Até 5 usuários",
+        "Até 10 usuários",
         "Assistente particular do atendente"
       ]
     }
