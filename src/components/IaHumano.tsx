@@ -87,7 +87,7 @@ const IaHumano: React.FC = () => {
         </div>
 
         {/* ícones + toggle */}
-        <div className="mx-auto grid max-w-5xl grid-cols-3 items-center gap-10 md:gap-16 mb-10">
+        <div className="mx-auto grid max-w-5xl grid-cols-3 items-center gap-6 md:gap-8 mb-10">
           {/* humano */}
           <div className="flex justify-center">
             <img
@@ -100,9 +100,6 @@ const IaHumano: React.FC = () => {
 
           {/* toggle */}
           <div className="flex flex-col items-center">
-            <div className="mb-3 text-sm font-medium text-slate-600 uppercase tracking-wide">
-              HUMANO &nbsp;&nbsp;|&nbsp;&nbsp; IA
-            </div>
 
             <div
               ref={trackRef}
