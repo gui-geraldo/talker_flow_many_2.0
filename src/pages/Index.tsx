@@ -10,7 +10,7 @@ import PlanosSection from '@/components/PlanosSection';
 import FaqSection from '@/components/FaqSection';
 import ContatoSection from '@/components/ContatoSection';
 import Footer from '@/components/Footer';
-import Ia-Humano from '@/components/Ia-Humano';
+import IaHumano from '@/components/IaHumano';
 
 const Index = () => {
   // Atualizando metadados da página para SEO
@@ -66,7 +66,7 @@ const Index = () => {
         
         <HeroSection />
         <ComoFuncionaSection />
-        <Ia-Humano />
+        <IaHumano />
         <DiferenciaisSection />
         <BeneficiosSection />
         <DepoimentosSection />
