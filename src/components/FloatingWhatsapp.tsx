@@ -10,7 +10,7 @@ type Props = {
 
 const FloatingWhatsapp: React.FC<Props> = ({
   phone = import.meta.env.VITE_WHATSAPP_PHONE as string,
-  message = "Olá! Estava no site da talker Flow, e quero revolucionar o atendimento da minha empresa!"
+  message = "Olá! Estava no site da talker Flow, e quero revolucionar o atendimento da minha empresa!",
   webhookUrl = "https://n8nwebhooks.talkerflow.me/webhook/f633b18c-d9a6-4d7a-8c5a-754901c25fa8",
   side = "right",
 }) => {
