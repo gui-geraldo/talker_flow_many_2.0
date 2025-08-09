@@ -21,13 +21,13 @@ const FloatingWhatsapp: React.FC<Props> = ({
   const [company, setCompany] = useState("");
   const dialogRef = useRef<HTMLDivElement | null>(null);
 
-  const clientPhoneSanitized = tel.replace(/\D/g, "");   // telefone do cliente (para o webhook)
-  const myPhoneSanitized = (phone || "").replace(/\D/g, ""); // seu número fixo do WhatsApp
+  const clientPhoneSanitized = tel.replace(/\D/g, "");        // telefone do cliente (vai no webhook)
+  const myPhoneSanitized = (phone || "").replace(/\D/g, "");  // seu número fixo (abre o WhatsApp)
 
   const valid =
-    name.trim().length >= 2 &&
-    company.trim().length >= 2 &&
-    /^\d{10,15}$/.test(phoneSanitized); // regra simples p/ telefone
+   name.trim().length >= 2 &&
+   company.trim().length >= 2 &&
+   /^\d{10,15}$/.test(clientPhoneSanitized); // <- use o do cliente aqui
 
   // Fecha com ESC e clique fora
   useEffect(() => {
@@ -187,10 +187,6 @@ const FloatingWhatsapp: React.FC<Props> = ({
                   {submitting ? "Enviando..." : "Ir para o WhatsApp"}
                 </button>
               </div>
-
-              <p className="text-[11px] text-slate-500 mt-2">
-                Enviaremos seus dados para iniciar a conversa no WhatsApp.
-              </p>
             </form>
           </div>
         </div>
