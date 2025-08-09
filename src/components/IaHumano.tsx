@@ -14,7 +14,7 @@ const IaHumano: React.FC = () => {
   const [isIA, setIsIA] = useState(true);
   const [translateRightPx, setTranslateRightPx] = useState(0);
 
-  // mede a distância EXATA para o knob ir até a direita (sem parar no meio)
+  // mede a distância exata para o knob ir até a direita
   const measure = () => {
     const track = trackRef.current;
     const knob = knobRef.current;
@@ -23,9 +23,8 @@ const IaHumano: React.FC = () => {
     const trackRect = track.getBoundingClientRect();
     const knobRect = knob.getBoundingClientRect();
 
-    // o knob começa com left: 8px (top-2 left-2) => padding visual do trilho
-    const leftPadding = 8;
-    const rightPadding = 8;
+    const leftPadding = 8; // px
+    const rightPadding = 8; // px
 
     const maxTranslate =
       trackRect.width - knobRect.width - leftPadding - rightPadding;
@@ -35,19 +34,17 @@ const IaHumano: React.FC = () => {
 
   useLayoutEffect(() => {
     measure();
-    // recalcula ao redimensionar
-    const onResize = () => measure();
-    window.addEventListener("resize", onResize);
-    return () => window.removeEventListener("resize", onResize);
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
   }, []);
 
-  // anima quando a seção entra na tela: direita (IA) -> esquerda (Humano)
+  // anima quando a seção entra na tela
   useEffect(() => {
     if (!sectionRef.current) return;
     const obs = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting && !hasInteracted.current) {
-          setIsIA(false); // vai para a esquerda
+          setIsIA(false);
           obs.disconnect();
         }
       },
@@ -73,7 +70,7 @@ const IaHumano: React.FC = () => {
     <section id="ia-humano" ref={sectionRef} className="relative py-20 bg-slate-50">
       <div className="container mx-auto px-4">
 
-        {/* === BARRA SUPERIOR (de volta) === */}
+        {/* === barra superior === */}
         <div className="mx-auto mb-12 w-full max-w-3xl">
           <div className="rounded-2xl bg-slate-900 text-slate-100 px-4 py-3 flex items-center gap-3 shadow-lg">
             <span className="inline-block w-4 h-4 rounded-full bg-slate-600" />
@@ -89,9 +86,9 @@ const IaHumano: React.FC = () => {
           </div>
         </div>
 
-        {/* ÍCONES + TOGGLE */}
+        {/* ícones + toggle */}
         <div className="mx-auto grid max-w-5xl grid-cols-3 items-center gap-10 md:gap-16 mb-10">
-          {/* PNG do atendente — maior */}
+          {/* humano */}
           <div className="flex justify-center">
             <img
               src={IconHumano}
@@ -101,17 +98,15 @@ const IaHumano: React.FC = () => {
             />
           </div>
 
-          {/* Toggle HUMANO ↔ IA — menor que antes e clicável */}
+          {/* toggle */}
           <div className="flex flex-col items-center">
             <div className="mb-3 text-sm font-medium text-slate-600 uppercase tracking-wide">
               HUMANO &nbsp;&nbsp;|&nbsp;&nbsp; IA
             </div>
 
-            {/* trilho (mais curto agora) */}
             <div
               ref={trackRef}
               className={[
-                // ↓ largura menor (w-36 md:w-40), altura moderada (h-14)
                 "relative h-14 w-36 md:w-40 rounded-full border transition-colors duration-300 cursor-pointer select-none outline-none",
                 isIA ? "bg-emerald-500 border-emerald-500" : "bg-white border-slate-300",
               ].join(" ")}
@@ -122,7 +117,6 @@ const IaHumano: React.FC = () => {
               onKeyDown={onKey}
               aria-label="Alternar entre Humano e IA"
             >
-              {/* trilho interno opcional */}
               <div
                 className={[
                   "absolute inset-1 rounded-full transition-colors duration-300",
@@ -130,12 +124,12 @@ const IaHumano: React.FC = () => {
                 ].join(" ")}
               />
 
-              {/* knob — agora movimentação em PX calculado (vai até o fim) */}
+              {/* knob centralizado verticalmente */}
               <div
                 ref={knobRef}
-                className="absolute top-2 left-2 h-10 w-10 md:h-11 md:w-11 rounded-full bg-white shadow transition-transform duration-300 will-change-transform"
+                className="absolute top-1/2 left-2 h-10 w-10 rounded-full bg-white shadow transition-transform duration-300 will-change-transform"
                 style={{
-                  transform: `translateX(${isIA ? translateRightPx : 0}px)`,
+                  transform: `translate(${isIA ? translateRightPx : 0}px, -50%)`,
                 }}
               />
             </div>
@@ -145,7 +139,7 @@ const IaHumano: React.FC = () => {
             </div>
           </div>
 
-          {/* PNG da IA — maior */}
+          {/* ia */}
           <div className="flex justify-center">
             <img
               src={IconIa}
@@ -156,7 +150,7 @@ const IaHumano: React.FC = () => {
           </div>
         </div>
 
-        {/* Texto principal */}
+        {/* texto */}
         <p className="mx-auto max-w-4xl text-center text-xl text-slate-700 mb-6">
           Tenha controle total sobre quem está interagindo com seu cliente, um
           atendente ou a IA. Intervenha a qualquer momento de forma simples.
