@@ -21,7 +21,8 @@ const FloatingWhatsapp: React.FC<Props> = ({
   const [company, setCompany] = useState("");
   const dialogRef = useRef<HTMLDivElement | null>(null);
 
-  const phoneSanitized = (tel || phone || "").replace(/\D/g, "");
+  const clientPhoneSanitized = tel.replace(/\D/g, "");   // telefone do cliente (para o webhook)
+  const myPhoneSanitized = (phone || "").replace(/\D/g, ""); // seu número fixo do WhatsApp
 
   const valid =
     name.trim().length >= 2 &&
@@ -55,7 +56,7 @@ const FloatingWhatsapp: React.FC<Props> = ({
 
     const payload = {
       name: name.trim(),
-      phone: phoneSanitized,
+      phone: clientPhoneSanitized,
       company: company.trim(),
       timestamp: new Date().toISOString(),
       page: typeof window !== "undefined" ? window.location.href : "",
@@ -79,7 +80,7 @@ const FloatingWhatsapp: React.FC<Props> = ({
       const msg = message || "";
       const composed =
         `Olá, sou ${name} da ${company}. ` + msg;
-      const wa = `https://wa.me/${phoneSanitized}?text=${encodeURIComponent(composed)}`;
+      const wa = `https://wa.me/${myPhoneSanitized}?text=${encodeURIComponent(composed)}`;
       window.open(wa, "_blank"); // nova aba
       setSubmitting(false);
       setOpen(false);
@@ -105,11 +106,13 @@ const FloatingWhatsapp: React.FC<Props> = ({
           "focus:ring-2 focus:ring-emerald-400 focus:ring-offset-2"
         ].join(" ")}
       >
-        {/* ícone svg do WhatsApp */}
-        <svg viewBox="0 0 32 32" aria-hidden="true" className="w-7 h-7 md:w-8 md:h-8">
-          <path fill="#fff" d="M19.11 17.82a5.57 5.57 0 0 1-2.38-.6c-.75-.38-1.59-.95-2.46-1.82-.87-.87-1.44-1.71-1.82-2.46a5.57 5.57 0 0 1-.6-2.38c0-.35.2-.67.5-.86l1.04-.64c.34-.21.78-.16 1.06.12l.64.64c.28.28.38.7.25 1.08l-.27.79c-.09.28-.04.58.14.8.58.74 1.33 1.6 2.07 2.34.74.74 1.6 1.49 2.34 2.07.22.18.52.23.8.14l.79-.27c.38-.13.8-.03 1.08.25l.64.64c.28.28.33.72.12 1.06l-.64 1.04c-.19.3-.51.5-.86.5z"/>
-          <path fill="#25D366" d="M16 3C9.37 3 4 8.37 4 15c0 2.12.55 4.11 1.52 5.84L4 29l8.34-1.47A11.9 11.9 0 0 0 16 27c6.63 0 12-5.37 12-12S22.63 3 16 3zm0 21.5c-1.62 0-3.13-.39-4.47-1.09l-.32-.16-4.07.72.74-3.98-.17-.33A9.47 9.47 0 1 1 16 24.5z"/>
-        </svg>
+         <img
+         src="/icons/whatsapp.png"    // arquivo que você colocou em public/icons
+         alt="WhatsApp"
+         className="w-8 h-8 md:w-9 md:h-9"  // tamanho do logo dentro do botão
+         draggable={false}
+  />
+        
       </button>
 
       {/* Modal */}
