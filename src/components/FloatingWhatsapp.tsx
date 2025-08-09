@@ -61,7 +61,7 @@ const FloatingWhatsapp: React.FC<Props> = ({
       timestamp: new Date().toISOString(),
       page: typeof window !== "undefined" ? window.location.href : "",
       source: "floating-whatsapp",
-      tipo_envio="WhstaApp Site"
+      tipo_envio: "WhatsApp Site"
     };
 
     try {
