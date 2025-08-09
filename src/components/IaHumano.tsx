@@ -1,65 +1,61 @@
+// src/components/IaHumano.tsx
 import React, { useEffect, useRef, useState } from "react";
-import { UsersRound, Cpu, Volume2, Share2 } from "lucide-react";
 
-/**
- * Seção "IA + Humano"
- * - Mostra os ícones (barra superior + equipe + toggle + chip IA)
- * - Texto igual ao da imagem
- * - Toggle HUMANO ↔ IA anima ao entrar em viewport: move da direita p/ esquerda e muda de cor
- */
+// ✅ Se preferir usar a pasta "public", troque para src="/images/..." no <img>
+import IconHumano from "@/assets/humano.png"; // coloque seu PNG em src/assets/humano.png
+import IconIa from "@/assets/ia.png";         // e seu PNG em src/assets/ia.png
+
 const IaHumano: React.FC = () => {
   const sectionRef = useRef<HTMLElement | null>(null);
-  const [animateToLeft, setAnimateToLeft] = useState(false);
+  const hasInteracted = useRef(false);
 
-  // Anima quando a seção entra na tela
+  // true = IA (knob à direita, trilho verde) | false = Humano (knob à esquerda, trilho branco)
+  const [isIA, setIsIA] = useState(true);
+
+  // Anima quando a seção entra na viewport: IA (direita) -> Humano (esquerda)
   useEffect(() => {
     if (!sectionRef.current) return;
-
     const obs = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setAnimateToLeft(true); // direita -> esquerda
-          // desliga depois de acionar uma vez
+        if (entry.isIntersecting && !hasInteracted.current) {
+          setIsIA(false); // desliza p/ esquerda + trilho branco
           obs.disconnect();
         }
       },
       { threshold: 0.4 }
     );
-
     obs.observe(sectionRef.current);
     return () => obs.disconnect();
   }, []);
 
+  const toggle = () => {
+    hasInteracted.current = true;
+    setIsIA((v) => !v);
+  };
+
+  const onKey = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === " " || e.key.toLowerCase() === "enter") {
+      e.preventDefault();
+      toggle();
+    }
+  };
+
   return (
-    <section
-      id="ia-humano"
-      ref={sectionRef}
-      className="relative py-20 bg-slate-50"
-    >
+    <section id="ia-humano" ref={sectionRef} className="relative py-20 bg-slate-50">
       <div className="container mx-auto px-4">
-        {/* Barra superior (decorativa, como no print) */}
-        <div className="mx-auto mb-10 w-full max-w-3xl">
-          <div className="rounded-2xl bg-slate-900 text-slate-100 px-4 py-3 flex items-center gap-3 shadow-lg">
-            <Volume2 className="w-4 h-4 opacity-70" />
-            <Share2 className="w-4 h-4 opacity-70" />
-            <div className="ml-auto flex items-center gap-2">
-              <button className="rounded-md bg-red-600/90 px-3 py-1.5 text-xs font-medium">
-                Desativar IA
-              </button>
-              <button className="rounded-md bg-emerald-500/90 px-3 py-1.5 text-xs font-medium">
-                Resolver
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {/* Ícones grandes + Toggle */}
+        {/* fileira de ícones + toggle */}
         <div className="mx-auto grid max-w-4xl grid-cols-3 items-center gap-8 md:gap-12 mb-10">
+          {/* seu ícone do atendente */}
           <div className="flex justify-center">
-            <UsersRound className="w-24 h-24 text-slate-600" />
+            <img
+              src={IconHumano}
+              alt="Atendente humano"
+              className="w-24 h-24 object-contain opacity-90"
+              draggable={false}
+            />
           </div>
 
-          {/* Toggle HUMANO ↔ IA (anima no scroll) */}
+          {/* Toggle HUMANO ↔ IA (clicável + teclado + anima no scroll) */}
           <div className="flex flex-col items-center">
             <div className="mb-3 text-sm font-medium text-slate-600 uppercase tracking-wide">
               Humano &nbsp;&nbsp;|&nbsp;&nbsp; IA
@@ -68,25 +64,48 @@ const IaHumano: React.FC = () => {
             {/* Track */}
             <div
               className={[
-                "relative h-14 w-28 rounded-full border transition-colors duration-700",
-                animateToLeft ? "bg-white border-slate-300" : "bg-emerald-500 border-emerald-500"
+                // alongado: w-48 (192px) | alto: h-16 | borda arredondada
+                "relative h-16 w-48 rounded-full border transition-colors duration-500 cursor-pointer select-none outline-none",
+                isIA ? "bg-emerald-500 border-emerald-500" : "bg-white border-slate-300",
               ].join(" ")}
-              aria-label="Alternar entre Humano e IA (demonstração)"
               role="switch"
-              aria-checked={!animateToLeft} // começa em IA (direita), move para Humano (esquerda)
+              aria-checked={isIA}
+              tabIndex={0}
+              onClick={toggle}
+              onKeyDown={onKey}
+              aria-label="Alternar entre Humano e IA"
             >
+              {/* trilho interno opcional para dar “smartphone vibe” */}
+              <div
+                className={[
+                  "absolute inset-1 rounded-full transition-colors duration-500",
+                  isIA ? "bg-emerald-400/30" : "bg-slate-100",
+                ].join(" ")}
+              />
+
               {/* Knob */}
               <div
                 className={[
-                  "absolute top-1 left-1 h-12 w-12 rounded-full bg-white shadow transition-transform duration-700 will-change-transform",
-                  animateToLeft ? "translate-x-0" : "translate-x-12"
+                  "absolute top-2 left-2 h-12 w-12 rounded-full bg-white shadow transition-transform duration-500 will-change-transform",
+                  isIA ? "translate-x-16 md:translate-x-20" : "translate-x-0",
                 ].join(" ")}
               />
             </div>
+
+            {/* label dinâmico (opcional) */}
+            <div className="mt-2 text-xs text-slate-500">
+              {isIA ? "IA ativa" : "Humano ativo"}
+            </div>
           </div>
 
+          {/* seu ícone da IA */}
           <div className="flex justify-center">
-            <Cpu className="w-24 h-24 text-slate-600" />
+            <img
+              src={IconIa}
+              alt="IA"
+              className="w-24 h-24 object-contain opacity-90"
+              draggable={false}
+            />
           </div>
         </div>
 
