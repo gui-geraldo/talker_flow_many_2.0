@@ -87,7 +87,7 @@ const IaHumano: React.FC = () => {
         </div>
 
         {/* ícones + toggle */}
-        <div className="mx-auto grid max-w-5xl grid-cols-3 items-center gap-6 md:gap-8 mb-10">
+        <div className="mx-auto grid max-w-5xl grid-cols-3 items-center gap-2 md:gap-4 mb-10">
           {/* humano */}
           <div className="flex justify-center">
             <img
@@ -124,7 +124,7 @@ const IaHumano: React.FC = () => {
               {/* knob centralizado verticalmente */}
               <div
                 ref={knobRef}
-                className="absolute top-1/2 left-2 h-10 w-10 rounded-full bg-white shadow transition-transform duration-300 will-change-transform"
+                className="absolute top-1/2 left-2 h-10 w-10 rounded-full bg-white shadow transition-transform duration-1000 will-change-transform"
                 style={{
                   transform: `translate(${isIA ? translateRightPx : 0}px, -50%)`,
                 }}
