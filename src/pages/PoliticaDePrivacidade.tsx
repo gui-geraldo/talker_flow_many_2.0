@@ -101,7 +101,6 @@ const PoliticaDePrivacidade: React.FC = () => {
                 <h2 className="text-2xl md:text-3xl font-bold text-neutral-dark mb-4">
                   1. Introdução e Compromisso
                 </h2>
-                <p>Bem-vindo à Talker Flow!</p>
                 <p>
                   Esta Política de Privacidade (“Política”) descreve como a Talker Flow Tecnologia, pessoa jurídica de
                   direito privado, inscrita no CNPJ sob o nº 37.819.469/0001-67, com sede na cidade de São Paulo/SP
@@ -311,16 +310,6 @@ const PoliticaDePrivacidade: React.FC = () => {
                   <a className="underline decoration-dotted" href="mailto:contato@talkerflow.me">contato@talkerflow.me</a>
                 </p>
               </section>
-
-              {/* CTA final */}
-              <section className="mt-6 bg-gradient-to-r from-primary/5 to-secondary/5 rounded-xl p-6 md:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-                <div>
-                  <h3 className="text-xl md:text-2xl font-bold text-neutral-dark mb-1">Precisa de ajuda?</h3>
-                  <p className="text-neutral-700">Nossa equipe pode orientar sobre como esta Política se aplica ao seu caso.</p>
-                </div>
-                <a href="#contato" className="btn-primary inline-flex">Falar com suporte</a>
-              </section>
-
               {/* voltar ao topo */}
               <div className="pt-4">
                 <a
