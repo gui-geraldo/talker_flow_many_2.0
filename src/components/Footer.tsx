@@ -1,5 +1,6 @@
 import React from 'react';
 import Logo from './Logo';
+import { Link } from 'react-router-dom'; // Import para navegação interna
 
 const Footer: React.FC = () => {
   return (
@@ -10,7 +11,8 @@ const Footer: React.FC = () => {
           <div>
             <Logo variant="white" className="mb-6" />
             <p className="text-white/70 text-sm">
-              Conversas inteligentes no WhatsApp que qualificam leads, resolvem dúvidas e constroem relações de confiança em diálogos humanos, 24 horas por dia.
+              Conversas inteligentes no WhatsApp que qualificam leads, resolvem dúvidas e constroem
+              relações de confiança em diálogos humanos, 24 horas por dia.
             </p>
           </div>
 
@@ -53,19 +55,19 @@ const Footer: React.FC = () => {
               © {new Date().getFullYear()} Talker Flow. Todos os direitos reservados.
             </p>
             <div className="flex space-x-6">
-  <a
-    href="/politica-de-privacidade"
-    className="text-white/50 hover:text-white transition-colors text-sm"
-  >
-    Política de Privacidade
-  </a>
-  <a
-    href="/termos-de-uso"
-    className="text-white/50 hover:text-white transition-colors text-sm"
-  >
-    Termos de Uso
-  </a>
-</div>
+              <Link
+                to="/politica-de-privacidade"
+                className="text-white/50 hover:text-white transition-colors text-sm"
+              >
+                Política de Privacidade
+              </Link>
+              <Link
+                to="/termos-de-uso"
+                className="text-white/50 hover:text-white transition-colors text-sm"
+              >
+                Termos de Uso
+              </Link>
+            </div>
           </div>
         </div>
       </div>
