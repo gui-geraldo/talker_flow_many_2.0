@@ -53,7 +53,19 @@ const Footer: React.FC = () => {
               © {new Date().getFullYear()} Talker Flow. Todos os direitos reservados.
             </p>
             <div className="flex space-x-6">
-            </div>
+  <a
+    href="/politica-de-privacidade"
+    className="text-white/50 hover:text-white transition-colors text-sm"
+  >
+    Política de Privacidade
+  </a>
+  <a
+    href="/termos-de-uso"
+    className="text-white/50 hover:text-white transition-colors text-sm"
+  >
+    Termos de Uso
+  </a>
+</div>
           </div>
         </div>
       </div>
