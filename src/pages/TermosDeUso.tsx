@@ -329,15 +329,6 @@ const TermosDeUso: React.FC = () => {
                 </p>
               </section>
 
-              {/* CTA final */}
-              <section className="mt-6 bg-gradient-to-r from-primary/5 to-secondary/5 rounded-xl p-6 md:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-                <div>
-                  <h3 className="text-xl md:text-2xl font-bold text-neutral-dark mb-1">Ficou com dúvidas?</h3>
-                  <p className="text-neutral-700">Fale com nosso suporte para entender como os Termos se aplicam ao seu uso.</p>
-                </div>
-                <a href="#contato" className="btn-primary inline-flex">Falar com suporte</a>
-              </section>
-
               {/* voltar ao topo */}
               <div className="pt-4">
                 <a
