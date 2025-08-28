@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { FileText, Printer, ArrowUpRight, ArrowUp } from 'lucide-react';
 
 const termos = [
@@ -34,6 +34,13 @@ const AnchorLink: React.FC<{ href: string; children: React.ReactNode }> = ({ hre
 );
 
 const TermosDeUso: React.FC = () => {
+     // força scroll para o topo ao carregar
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      window.scrollTo({ top: 0, behavior: 'auto' }); // ou 'instant'
+    }
+  }, []);
+
   const handlePrint = () => {
     if (typeof window !== 'undefined') window.print();
   };
