@@ -3,7 +3,7 @@ import { Check, X, Star } from 'lucide-react';
 
 const PlanosSection: React.FC = () => {
   const planos = [
-    { id: 'starter', nome: 'Starter', destaque: false, preco: null, periodo: '/mês' },
+    { id: 'starter', nome: 'Starter', destaque: false, preco: 'R$ 199', periodo: '/mês' },
     { id: 'essencial', nome: 'Essencial', destaque: false, preco: 'R$ 599', periodo: '/mês' },
     { id: 'pro', nome: 'Pro', destaque: true, preco: 'R$ 799', periodo: '/mês' },
   ] as const;
@@ -23,18 +23,18 @@ const PlanosSection: React.FC = () => {
     const v = valor.trim().toLowerCase();
     if (v === 'sim') {
       return (
-        <span className="inline-flex items-center gap-2">
+        <div className="inline-flex items-center justify-center gap-2">
           <Check className={`h-5 w-5 ${destacado ? 'text-blue-600' : 'text-green-600'}`} />
           <span>Sim</span>
-        </span>
+        </div>
       );
     }
-    if (v === 'não' || v === 'nao' || v === 'não ') {
+    if (v === 'não' || v === 'nao') {
       return (
-        <span className="inline-flex items-center gap-2">
+        <div className="inline-flex items-center justify-center gap-2">
           <X className="h-5 w-5 text-rose-500" />
           <span>Não</span>
-        </span>
+        </div>
       );
     }
     return <span>{valor}</span>;
@@ -44,16 +44,16 @@ const PlanosSection: React.FC = () => {
     <section id="planos" className="py-20 bg-white">
       <div className="container mx-auto px-4">
         {/* Título */}
-        <div className="text-center mb-12 animate-fade-in">
+        <div className="text-center mb-12">
           <h2 className="text-4xl font-bold text-neutral-900 mb-3">Planos e Preços</h2>
           <p className="text-lg text-neutral-600">Compare os recursos e escolha o melhor para a sua clínica</p>
         </div>
 
         {/* Tabela */}
-        <div className="max-w-6xl mx-auto overflow-x-auto">
-          <div className="rounded-2xl border border-neutral-200 shadow-sm bg-white">
+        <div className="max-w-6xl mx-auto">
+          <div className="rounded-2xl border border-neutral-200 shadow-sm bg-white overflow-hidden">
             <table className="min-w-full">
-              {/* Cabeçalho com nomes e preços, estilizados como os cards */}
+              {/* Cabeçalho */}
               <thead>
                 <tr className="align-top">
                   <th className="w-1/3 px-6 py-6 text-left text-sm font-semibold text-neutral-700">
@@ -61,26 +61,25 @@ const PlanosSection: React.FC = () => {
                   </th>
 
                   {planos.map((p) => (
-                    <th key={p.id} className="px-6 py-6 text-left">
+                    <th key={p.id} className="px-6 py-6 text-center">
                       <div
-                        className={`relative rounded-xl border px-6 py-5 ${
+                        className={`relative rounded-xl border px-6 py-5 mx-auto max-w-[280px] ${
                           p.destaque
                             ? 'bg-gradient-to-br from-white via-blue-50 to-blue-100 border-blue-200 shadow-md'
                             : 'bg-white border-neutral-200'
                         }`}
                       >
-                        <div className="flex items-start justify-between">
-                          <h3 className="text-lg font-bold text-neutral-900">{p.nome}</h3>
-                          {p.destaque && (
-                            <span className="absolute -top-3 left-1/2 -translate-x-1/2 inline-flex items-center gap-1 text-xs font-bold bg-gradient-to-r from-blue-500 to-purple-500 text-white px-3 py-1 rounded-full shadow">
-                              <Star className="h-3.5 w-3.5" />
-                              Mais Popular
-                            </span>
-                          )}
-                        </div>
+                        {p.destaque && (
+                          <span className="absolute -top-3 left-1/2 -translate-x-1/2 inline-flex items-center gap-1 text-xs font-bold bg-gradient-to-r from-blue-500 to-purple-500 text-white px-3 py-1 rounded-full shadow">
+                            <Star className="h-3.5 w-3.5" />
+                            Mais Popular
+                          </span>
+                        )}
+
+                        <h3 className="text-lg font-bold text-neutral-900 text-center">{p.nome}</h3>
 
                         {p.preco && (
-                          <div className="mt-2 flex items-baseline gap-2">
+                          <div className="mt-2 flex items-baseline justify-center gap-2">
                             <span className={`text-3xl font-extrabold ${p.destaque ? 'text-blue-600' : 'text-neutral-900'}`}>
                               {p.preco}
                             </span>
@@ -93,20 +92,19 @@ const PlanosSection: React.FC = () => {
                 </tr>
               </thead>
 
+              {/* Corpo */}
               <tbody className="divide-y divide-neutral-100">
                 {atributos.map((attr, idx) => (
-                  <tr key={idx} className={idx % 2 === 0 ? 'bg-white' : 'bg-neutral-50/50'}>
-                    <td className="px-6 py-4 text-sm font-medium text-neutral-800 sticky left-0 bg-inherit">
+                  <tr key={idx} className={idx % 2 === 0 ? 'bg-white' : 'bg-neutral-50/60'}>
+                    <td className="px-6 py-4 text-sm font-medium text-neutral-800">
                       {attr.nome}
                     </td>
 
                     {planos.map((p) => (
                       <td
                         key={p.id}
-                        className={`px-6 py-4 text-sm ${
-                          p.destaque
-                            ? 'bg-gradient-to-br from-white via-blue-50 to-blue-100'
-                            : 'bg-transparent'
+                        className={`px-6 py-4 text-sm text-center ${
+                          p.destaque ? 'bg-gradient-to-br from-white via-blue-50 to-blue-100' : 'bg-transparent'
                         }`}
                       >
                         {renderValor((attr.valores as any)[p.id], p.destaque)}
@@ -115,14 +113,14 @@ const PlanosSection: React.FC = () => {
                   </tr>
                 ))}
 
-                {/* CTA */}
+                {/* CTAs */}
                 <tr>
                   <td className="px-6 py-6" />
                   {planos.map((p) => (
-                    <td key={p.id} className="px-6 py-6">
+                    <td key={p.id} className="px-6 py-6 text-center">
                       <a
                         href="#contato"
-                        className={`inline-flex w-full justify-center py-3 px-6 rounded-lg font-semibold transition-all duration-300 text-center ${
+                        className={`inline-flex min-w-[220px] justify-center py-3 px-6 rounded-lg font-semibold transition-all duration-300 ${
                           p.destaque
                             ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:from-blue-700 hover:to-purple-700 shadow-lg'
                             : 'bg-neutral-100 text-neutral-800 hover:bg-neutral-200'
@@ -135,11 +133,6 @@ const PlanosSection: React.FC = () => {
                 </tr>
               </tbody>
             </table>
-          </div>
-
-          {/* Nota de usabilidade em mobile (rolagem) */}
-          <div className="mt-2 text-xs text-neutral-400 text-center">
-            Arraste horizontalmente para ver todos os planos em telas menores.
           </div>
         </div>
       </div>
