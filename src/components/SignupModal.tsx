@@ -1,13 +1,14 @@
 // SignupModal.tsx
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 
+// TIPOS
 type Plan = {
   id: 'starter' | 'essencial' | 'pro';
   nome: string;
   preco?: string;
   periodo?: string;
   destaque?: boolean;
-  checkoutUrl: string; // URL de checkout na Green (um por plano)
+  checkoutUrl: string;
 };
 
 type Props = {
@@ -15,48 +16,62 @@ type Props = {
   onClose: () => void;
   initialPlanId: Plan['id'];
   plans: Plan[];
-  webhookUrl: string; // URL do seu webhook n8n
+  webhookUrl: string;
 };
 
 type FormData = {
   name: string;
   email: string;
-  phone: string; // com máscara
+  phone: string;
+  company: string;
   plan: Plan['id'];
 };
 
 type Errors = Partial<Record<keyof FormData, string>>;
 
+
+// FUNÇÕES AUXILIARES DE FORMATAÇÃO E VALIDAÇÃO
 const phoneDigits = (v: string) => v.replace(/\D/g, '');
 const formatPhone = (v: string) => {
-  const d = phoneDigits(v).slice(0, 11); // BR padrão: 11 (com 9)
+  const d = phoneDigits(v).slice(0, 11);
   if (d.length <= 10) {
-    // (DD) 0000-0000
-    const part1 = d.slice(0, 2);
-    const part2 = d.slice(2, 6);
-    const part3 = d.slice(6, 10);
-    return [
-      part1 ? `(${part1}` : '',
-      part1 && part1.length === 2 ? ') ' : '',
-      part2,
-      part3 ? `-${part3}` : '',
-    ].join('');
+    const p1 = d.slice(0, 2), p2 = d.slice(2, 6), p3 = d.slice(6, 10);
+    return `${p1 ? `(${p1}` : ''}${p1.length === 2 ? ') ' : ''}${p2}${p3 ? `-${p3}` : ''}`;
   }
-  // (DD) 00000-0000
-  const part1 = d.slice(0, 2);
-  const part2 = d.slice(2, 7);
-  const part3 = d.slice(7, 11);
-  return `(${part1}) ${part2}-${part3}`;
+  const p1 = d.slice(0, 2), p2 = d.slice(2, 7), p3 = d.slice(7, 11);
+  return `(${p1}) ${p2}-${p3}`;
+};
+const emailOk = (e: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e.trim());
+
+// NOVO: Função para extrair dados do User-Agent
+const parseUserAgent = () => {
+    const ua = navigator.userAgent;
+    let sistema_operacional = 'Outro';
+    if (/Windows/i.test(ua)) sistema_operacional = 'Windows';
+    else if (/Macintosh|Mac OS X/i.test(ua)) sistema_operacional = 'MacOS';
+    else if (/Android/i.test(ua)) sistema_operacional = 'Android';
+    else if (/iPhone|iPad|iPod/i.test(ua)) sistema_operacional = 'iOS';
+    else if (/Linux/i.test(ua)) sistema_operacional = 'Linux';
+  
+    let navegador = 'Outro';
+    if (/Chrome/i.test(ua) && !/Edg/i.test(ua)) navegador = 'Chrome';
+    else if (/Safari/i.test(ua) && !/Chrome/i.test(ua)) navegador = 'Safari';
+    else if (/Firefox/i.test(ua)) navegador = 'Firefox';
+    else if (/Edg/i.test(ua)) navegador = 'Edge';
+  
+    const dispositivo = /Mobi/i.test(ua) ? 'mobile' : 'desktop';
+  
+    return { sistema_operacional, navegador, dispositivo };
 };
 
-const emailOk = (e: string) =>
-  /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e.trim());
 
+// COMPONENTE PRINCIPAL
 const SignupModal: React.FC<Props> = ({ isOpen, onClose, initialPlanId, plans, webhookUrl }) => {
   const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
     phone: '',
+    company: '',
     plan: initialPlanId,
   });
   const [errors, setErrors] = useState<Errors>({});
@@ -69,7 +84,6 @@ const SignupModal: React.FC<Props> = ({ isOpen, onClose, initialPlanId, plans, w
       setErrors({});
       setSending(false);
       startTimeRef.current = Date.now();
-      // bloqueia scroll da página
       document.body.style.overflow = 'hidden';
     }
     return () => { document.body.style.overflow = ''; };
@@ -88,27 +102,43 @@ const SignupModal: React.FC<Props> = ({ isOpen, onClose, initialPlanId, plans, w
     if (!emailOk(formData.email)) e.email = 'E-mail inválido.';
     const digits = phoneDigits(formData.phone);
     if (digits.length < 10) e.phone = 'WhatsApp inválido.';
+    if (!formData.company.trim()) e.company = 'Informe o nome da empresa.';
     setErrors(e);
     return Object.keys(e).length === 0;
   };
 
-  // Coleta metadados simples (opcional – enxuto)
+  // ALTERADO: Coleta de metadados mais completa
   const collectMeta = () => {
     const url = new URL(window.location.href);
     const get = (k: string) => url.searchParams.get(k) || undefined;
+  
+    const utm_source = get('utm_source');
+    let origin_platform = utm_source;
+    if (utm_source === 'ig') origin_platform = 'ig';
+    if (utm_source === 'fb') origin_platform = 'fb';
+  
+    const sessionTimeSec = Math.round((Date.now() - startTimeRef.current) / 1000);
+    
     return {
-      page_url: window.location.href,
-      referrer: document.referrer || undefined,
-      utm_source: get('utm_source'),
+      utm_source: utm_source,
       utm_medium: get('utm_medium'),
       utm_campaign: get('utm_campaign'),
       utm_content: get('utm_content'),
       utm_term: get('utm_term'),
+      fbclid: get('fbclid'),
+      gclid: get('gclid'),
+      referrer: document.referrer || undefined,
+      page_url: window.location.href,
+      ...parseUserAgent(),
       idioma: navigator.language,
-      tempo_sessao_seg: Math.round((Date.now() - startTimeRef.current) / 1000),
+      quantidade_visitas: 1,
+      tempo_total_no_site_segundos: sessionTimeSec,
+      tempo_sessao_atual_segundos: sessionTimeSec,
+      origin_platform: origin_platform,
     };
   };
 
+  // Funções de envio (sem alterações)
   const tryFetchJson = async (dest: string, body: any, timeoutMs = 1500) => {
     const ctrl = new AbortController();
     const id = setTimeout(() => ctrl.abort(), timeoutMs);
@@ -127,7 +157,6 @@ const SignupModal: React.FC<Props> = ({ isOpen, onClose, initialPlanId, plans, w
       return false;
     }
   };
-
   const tryBeacon = (dest: string, body: any) => {
     try {
       if ('sendBeacon' in navigator) {
@@ -135,11 +164,8 @@ const SignupModal: React.FC<Props> = ({ isOpen, onClose, initialPlanId, plans, w
         return navigator.sendBeacon(dest, blob);
       }
       return false;
-    } catch {
-      return false;
-    }
+    } catch { return false; }
   };
-
   const tryFetchNoCors = async (dest: string, body: any) => {
     try {
       await fetch(dest, {
@@ -149,72 +175,118 @@ const SignupModal: React.FC<Props> = ({ isOpen, onClose, initialPlanId, plans, w
         body: JSON.stringify(body),
         keepalive: true,
       });
-      // no-cors não dá status; assumimos best-effort
       return true;
-    } catch {
-      return false;
-    }
+    } catch { return false; }
   };
 
+  // ALTERADO: Função de submit com o novo formato do payload
   const onSubmit = async (ev: React.FormEvent) => {
     ev.preventDefault();
     if (!validate()) return;
-
     setSending(true);
 
-    // monta payload do webhook
     const idem = `${Date.now()}_${Math.random().toString(16).slice(2)}`;
     const selectedPlan = planById[formData.plan];
+    
     const payload = {
-      nome: formData.name.trim(),
-      email: formData.email.trim(),
-      celular: phoneDigits(formData.phone),
-      plano_id: selectedPlan.id,
-      plano_nome: selectedPlan.nome,
-      form_id: 'seleciona_checkout',
+      Nome: formData.name.trim(),
+      Email: formData.email.trim(),
+      Celular: phoneDigits(formData.phone),
+      produto_popup: selectedPlan.nome,
+      form_id: 'Seleciona_Checkout',
       idempotency_key: idem,
-      data_envio_iso: new Date().toISOString(),
+      data_envio: new Date().toISOString(),
       ...collectMeta(),
     };
 
-    // tenta enviar (3 estratégias)
     const ok =
       (await tryFetchJson(webhookUrl, payload)) ||
       tryBeacon(webhookUrl, payload) ||
       (await tryFetchNoCors(webhookUrl, payload));
 
-    // salva localmente (opcional)
-    try {
-      localStorage.setItem('lead_checkout', JSON.stringify({
-        ...payload,
-        phone_masked: formData.phone,
-      }));
-    } catch {}
-
-    // redireciona para checkout (mesmo se webhook falhar — ajuste se quiser bloquear)
     window.location.href = selectedPlan.checkoutUrl;
   };
 
   const changePlan = (id: Plan['id']) => setFormData((f) => ({ ...f, plan: id }));
 
+  // RENDERIZAÇÃO (JSX)
   return (
     <div
       aria-modal
       role="dialog"
-      className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/50 px-4"
-      onClick={(e) => {
-        if (e.target === e.currentTarget) onClose();
-      }}
+      className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/70 px-4 backdrop-blur-sm"
+      onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
     >
-      <div className="w-full max-w-2xl rounded-xl bg-white shadow-2xl overflow-hidden">
-        <div className="flex items-center justify-between px-6 py-4 border-b">
-          <h3 className="text-lg font-bold">Quase lá! Preencha seus dados</h3>
-          <button onClick={onClose} aria-label="Fechar" className="p-2 rounded hover:bg-neutral-100">✕</button>
+      <div className="w-full max-w-xl rounded-2xl bg-neutral-900 text-neutral-100 shadow-lg overflow-hidden">
+        {/* Header */}
+        <div className="p-6 bg-gradient-to-r from-fuchsia-500 via-purple-500 to-blue-500 flex items-center justify-between">
+          <h3 className="text-2xl font-extrabold text-white">Comece agora!</h3>
+          <button onClick={onClose} className="ml-4 inline-flex h-8 w-8 items-center justify-center rounded-full bg-white/20 text-white hover:bg-white/30">✕</button>
         </div>
 
-        <form onSubmit={onSubmit} className="p-6 space-y-6">
-          {/* Seleção de plano dentro do modal */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        <form onSubmit={onSubmit} className="p-6 space-y-5">
+          {/* Campos */}
+          <div>
+            <label className="block text-sm font-medium mb-1 text-neutral-300">
+              Nome completo <span className="text-rose-400">*</span>
+            </label>
+            <input
+              className="w-full rounded-lg border border-white/10 bg-neutral-800 px-3 py-2"
+              value={formData.name}
+              onChange={(e) => setFormData((f) => ({ ...f, name: e.target.value }))}
+              placeholder="Seu nome"
+              required
+            />
+            {errors.name && <p className="mt-1 text-xs text-rose-400">{errors.name}</p>}
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium mb-1 text-neutral-300">
+              E-mail <span className="text-rose-400">*</span>
+            </label>
+            <input
+              className="w-full rounded-lg border border-white/10 bg-neutral-800 px-3 py-2"
+              value={formData.email}
+              onChange={(e) => setFormData((f) => ({ ...f, email: e.target.value }))}
+              placeholder="seuemail@exemplo.com"
+              inputMode="email"
+              required
+            />
+            {errors.email && <p className="mt-1 text-xs text-rose-400">{errors.email}</p>}
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium mb-1 text-neutral-300">
+              WhatsApp <span className="text-rose-400">*</span>
+            </label>
+            <input
+              className="w-full rounded-lg border border-white/10 bg-neutral-800 px-3 py-2"
+              value={formData.phone}
+              onChange={(e) => setFormData((f) => ({ ...f, phone: formatPhone(e.target.value) }))}
+              placeholder="(11) 99999-9999"
+              inputMode="tel"
+              required
+            />
+            {errors.phone && <p className="mt-1 text-xs text-rose-400">{errors.phone}</p>}
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium mb-1 text-neutral-300">
+              Nome da empresa <span className="text-rose-400">*</span>
+            </label>
+            <input
+              className="w-full rounded-lg border border-white/10 bg-neutral-800 px-3 py-2"
+              value={formData.company}
+              onChange={(e) => setFormData((f) => ({ ...f, company: e.target.value }))}
+              placeholder="Ex.: Clínica Sorriso LTDA"
+              required
+            />
+            {errors.company && <p className="mt-1 text-xs text-rose-400">{errors.company}</p>}
+          </div>
+
+          {/* Planos */}
+          <div className="space-y-3">
+            <label className="block text-sm font-medium text-neutral-300">Escolha seu plano</label>
             {plans.map((p) => {
               const selected = formData.plan === p.id;
               return (
@@ -222,75 +294,21 @@ const SignupModal: React.FC<Props> = ({ isOpen, onClose, initialPlanId, plans, w
                   key={p.id}
                   type="button"
                   onClick={() => changePlan(p.id)}
-                  className={`text-left border rounded-lg p-4 transition ${
-                    selected ? 'border-blue-600 ring-2 ring-blue-200' : 'border-neutral-200 hover:border-neutral-300'
-                  }`}
+                  className={`w-full text-left rounded-xl border px-4 py-4 ${selected ? 'border-purple-400 ring-2 ring-purple-300/30' : 'border-white/10'}`}
                 >
-                  <div className="font-semibold">{p.nome}</div>
-                  {!!p.preco && (
-                    <div className="text-sm text-neutral-600">
-                      {p.preco} <span className="text-neutral-400">{p.periodo}</span>
-                    </div>
-                  )}
+                  <div className="flex items-center justify-between">
+                    <span>{p.nome}</span>
+                    <span>{p.preco} {p.periodo}</span>
+                  </div>
                 </button>
               );
             })}
           </div>
 
-          {/* Campos */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <div>
-              <label className="block text-sm font-medium mb-1">Nome</label>
-              <input
-                className="w-full rounded-lg border px-3 py-2 outline-none focus:border-blue-600"
-                value={formData.name}
-                onChange={(e) => setFormData((f) => ({ ...f, name: e.target.value }))}
-                placeholder="Seu nome"
-              />
-              {errors.name && <p className="mt-1 text-xs text-rose-600">{errors.name}</p>}
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium mb-1">E-mail</label>
-              <input
-                className="w-full rounded-lg border px-3 py-2 outline-none focus:border-blue-600"
-                value={formData.email}
-                onChange={(e) => setFormData((f) => ({ ...f, email: e.target.value }))}
-                placeholder="voce@exemplo.com"
-                inputMode="email"
-              />
-              {errors.email && <p className="mt-1 text-xs text-rose-600">{errors.email}</p>}
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium mb-1">WhatsApp</label>
-              <input
-                className="w-full rounded-lg border px-3 py-2 outline-none focus:border-blue-600"
-                value={formData.phone}
-                onChange={(e) => setFormData((f) => ({ ...f, phone: formatPhone(e.target.value) }))}
-                placeholder="(11) 99999-9999"
-                inputMode="tel"
-              />
-              {errors.phone && <p className="mt-1 text-xs text-rose-600">{errors.phone}</p>}
-            </div>
-          </div>
-
-          <div className="flex items-center justify-end gap-3">
-            <button
-              type="button"
-              onClick={onClose}
-              className="px-4 py-2 rounded-lg border border-neutral-300 hover:bg-neutral-50"
-            >
-              Cancelar
-            </button>
-            <button
-              type="submit"
-              disabled={sending}
-              className="px-5 py-2.5 rounded-lg bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold hover:from-blue-700 hover:to-purple-700 disabled:opacity-60"
-            >
-              {sending ? 'Enviando…' : 'Ir para pagamento'}
-            </button>
-          </div>
+          {/* CTA */}
+          <button type="submit" disabled={sending} className="w-full rounded-xl py-3 font-semibold text-white bg-gradient-to-r from-fuchsia-500 via-purple-500 to-blue-500">
+            {sending ? 'Enviando…' : 'Finalizar Assinatura'}
+          </button>
         </form>
       </div>
     </div>
