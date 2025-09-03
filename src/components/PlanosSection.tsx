@@ -1,11 +1,21 @@
-import React from 'react';
+// PlanosSection.tsx
+import React, { useMemo, useState } from 'react';
 import { Check, X, Star } from 'lucide-react';
+import SignupModal from './SignupModal';
 
 const PlanosSection: React.FC = () => {
+  // 1) Defina aqui as URLs de checkout da Green (um por plano)
+  const checkoutUrls = useMemo(() => ({
+    starter: 'https://payfast.greenn.com.br/134091/offer/69x7wK',   
+    essencial: 'https://payfast.greenn.com.br/134091/offer/kPCLXC', 
+    pro: 'https://payfast.greenn.com.br/134091/offer/eQXjY9',       
+  }), []);
+
+  // 2) Dados dos planos (mesmo visual do seu componente atual)
   const planos = [
-    { id: 'starter', nome: 'Starter', destaque: false, preco: 'R$ 199', periodo: '/mês' },
-    { id: 'essencial', nome: 'Essencial', destaque: false, preco: 'R$ 599', periodo: '/mês' },
-    { id: 'pro', nome: 'Pro', destaque: true, preco: 'R$ 799', periodo: '/mês' },
+    { id: 'starter', nome: 'Starter', destaque: false, preco: 'R$ 199', periodo: '/mês', checkoutUrl: checkoutUrls.starter },
+    { id: 'essencial', nome: 'Essencial', destaque: false, preco: 'R$ 599', periodo: '/mês', checkoutUrl: checkoutUrls.essencial },
+    { id: 'pro', nome: 'Pro', destaque: true,  preco: 'R$ 799', periodo: '/mês', checkoutUrl: checkoutUrls.pro },
   ] as const;
 
   const atributos = [
@@ -40,20 +50,27 @@ const PlanosSection: React.FC = () => {
     return <span>{valor}</span>;
   };
 
+  // 3) Estado do modal
+  const [isOpen, setIsOpen] = useState(false);
+  const [initialPlanId, setInitialPlanId] = useState<typeof planos[number]['id']>('starter');
+
+  const openModal = (planId: typeof initialPlanId) => {
+    setInitialPlanId(planId);
+    setIsOpen(true);
+  };
+
   return (
     <section id="planos" className="py-20 bg-white">
       <div className="container mx-auto px-4">
-        {/* Título */}
+
         <div className="text-center mb-12">
           <h2 className="text-4xl font-bold text-neutral-900 mb-3">Planos e Preços</h2>
           <p className="text-lg text-neutral-600">Compare os recursos e escolha o melhor para a sua clínica</p>
         </div>
 
-        {/* Tabela */}
         <div className="max-w-6xl mx-auto">
           <div className="rounded-2xl border border-neutral-200 shadow-sm bg-white overflow-hidden">
             <table className="min-w-full">
-              {/* Cabeçalho */}
               <thead>
                 <tr className="align-top">
                   <th className="w-1/3 px-6 py-6 text-left text-sm font-semibold text-neutral-700">
@@ -92,7 +109,6 @@ const PlanosSection: React.FC = () => {
                 </tr>
               </thead>
 
-              {/* Corpo */}
               <tbody className="divide-y divide-neutral-100">
                 {atributos.map((attr, idx) => (
                   <tr key={idx} className={idx % 2 === 0 ? 'bg-white' : 'bg-neutral-50/60'}>
@@ -113,13 +129,14 @@ const PlanosSection: React.FC = () => {
                   </tr>
                 ))}
 
-                {/* CTAs */}
+                {/* CTAs: trocamos <a> por <button> para abrir o modal */}
                 <tr>
                   <td className="px-6 py-6" />
                   {planos.map((p) => (
                     <td key={p.id} className="px-6 py-6 text-center">
-                      <a
-                        href="#contato"
+                      <button
+                        type="button"
+                        onClick={() => openModal(p.id)}
                         className={`inline-flex min-w-[220px] justify-center py-3 px-6 rounded-lg font-semibold transition-all duration-300 ${
                           p.destaque
                             ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:from-blue-700 hover:to-purple-700 shadow-lg'
@@ -127,7 +144,7 @@ const PlanosSection: React.FC = () => {
                         }`}
                       >
                         Contratar
-                      </a>
+                      </button>
                     </td>
                   ))}
                 </tr>
@@ -136,6 +153,22 @@ const PlanosSection: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {/* Modal */}
+      <SignupModal
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+        initialPlanId={initialPlanId}
+        plans={planos.map(p => ({
+          id: p.id,
+          nome: p.nome,
+          preco: p.preco,
+          periodo: p.periodo,
+          destaque: p.destaque,
+          checkoutUrl: p.checkoutUrl,
+        }))}
+        webhookUrl="https://managern8neditor.talkerflow.me/webhook-test/43d950af-0179-4ad7-b63d-b08773cb9e36"
+      />
     </section>
   );
 };
