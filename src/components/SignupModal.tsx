@@ -29,8 +29,25 @@ type FormData = {
 
 type Errors = Partial<Record<keyof FormData, string>>;
 
+// ========= VISUAL / TEMA =========
+// O componente usa variáveis CSS para cores/tons.
+// Defina no seu CSS global (ou no container do modal) algo como:
+// :root {
+//   --tf-bg: #0b0f12;
+//   --tf-surface: #0f1418;
+//   --tf-border: rgba(255,255,255,.08);
+//   --tf-text: #e6edf3;
+//   --tf-text-muted: #a9b1b8;
+//   --tf-primary: #25D366;            /* verde WhatsApp (exemplo) */
+//   --tf-primary-contrast: #06140b;
+//   --tf-accent: #1f6feb;             /* azul de apoio (exemplo) */
+//   --tf-danger: #f87171;
+// }
+// Se não definir, o componente usa defaults abaixo.
+const cssVar = (name: string, fallback: string) =>
+  `var(${name}, ${fallback})`;
 
-// FUNÇÕES AUXILIARES DE FORMATAÇÃO E VALIDAÇÃO
+// ========= AUXILIARES =========
 const phoneDigits = (v: string) => v.replace(/\D/g, '');
 const formatPhone = (v: string) => {
   const d = phoneDigits(v).slice(0, 11);
@@ -43,30 +60,29 @@ const formatPhone = (v: string) => {
 };
 const emailOk = (e: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e.trim());
 
-// NOVO: Função para extrair dados do User-Agent
+// User-Agent → navegador / SO / dispositivo
 const parseUserAgent = () => {
-    const ua = navigator.userAgent;
-    let sistema_operacional = 'Outro';
-    if (/Windows/i.test(ua)) sistema_operacional = 'Windows';
-    else if (/Macintosh|Mac OS X/i.test(ua)) sistema_operacional = 'MacOS';
-    else if (/Android/i.test(ua)) sistema_operacional = 'Android';
-    else if (/iPhone|iPad|iPod/i.test(ua)) sistema_operacional = 'iOS';
-    else if (/Linux/i.test(ua)) sistema_operacional = 'Linux';
-  
-    let navegador = 'Outro';
-    if (/Chrome/i.test(ua) && !/Edg/i.test(ua)) navegador = 'Chrome';
-    else if (/Safari/i.test(ua) && !/Chrome/i.test(ua)) navegador = 'Safari';
-    else if (/Firefox/i.test(ua)) navegador = 'Firefox';
-    else if (/Edg/i.test(ua)) navegador = 'Edge';
-  
-    const dispositivo = /Mobi/i.test(ua) ? 'mobile' : 'desktop';
-  
-    return { sistema_operacional, navegador, dispositivo };
+  const ua = navigator.userAgent;
+  let sistema_operacional = 'Outro';
+  if (/Windows/i.test(ua)) sistema_operacional = 'Windows';
+  else if (/Macintosh|Mac OS X/i.test(ua)) sistema_operacional = 'MacOS';
+  else if (/Android/i.test(ua)) sistema_operacional = 'Android';
+  else if (/iPhone|iPad|iPod/i.test(ua)) sistema_operacional = 'iOS';
+  else if (/Linux/i.test(ua)) sistema_operacional = 'Linux';
+
+  let navegador = 'Outro';
+  if (/Chrome/i.test(ua) && !/Edg/i.test(ua)) navegador = 'Chrome';
+  else if (/Safari/i.test(ua) && !/Chrome/i.test(ua)) navegador = 'Safari';
+  else if (/Firefox/i.test(ua)) navegador = 'Firefox';
+  else if (/Edg/i.test(ua)) navegador = 'Edge';
+
+  const dispositivo = /Mobi/i.test(ua) ? 'mobile' : 'desktop';
+  return { sistema_operacional, navegador, dispositivo };
 };
 
-
-// COMPONENTE PRINCIPAL
-const SignupModal: React.FC<Props> = ({ isOpen, onClose, initialPlanId, plans, webhookUrl }) => {
+const SignupModal: React.FC<Props> = ({
+  isOpen, onClose, initialPlanId, plans, webhookUrl,
+}) => {
   const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
@@ -107,18 +123,17 @@ const SignupModal: React.FC<Props> = ({ isOpen, onClose, initialPlanId, plans, w
     return Object.keys(e).length === 0;
   };
 
-  // ALTERADO: Coleta de metadados mais completa
   const collectMeta = () => {
     const url = new URL(window.location.href);
     const get = (k: string) => url.searchParams.get(k) || undefined;
-  
+
     const utm_source = get('utm_source');
     let origin_platform = utm_source;
     if (utm_source === 'ig') origin_platform = 'ig';
     if (utm_source === 'fb') origin_platform = 'fb';
-  
+
     const sessionTimeSec = Math.round((Date.now() - startTimeRef.current) / 1000);
-    
+
     return {
       utm_source: utm_source,
       utm_medium: get('utm_medium'),
@@ -138,14 +153,14 @@ const SignupModal: React.FC<Props> = ({ isOpen, onClose, initialPlanId, plans, w
     };
   };
 
-  // Funções de envio (sem alterações)
-  const tryFetchJson = async (dest: string, body: any, timeoutMs = 1500) => {
+  // Envio
+  const tryFetchJson = async (dest: string, body: any, headers: Record<string, string>, timeoutMs = 1500) => {
     const ctrl = new AbortController();
     const id = setTimeout(() => ctrl.abort(), timeoutMs);
     try {
       const r = await fetch(dest, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', ...headers },
         body: JSON.stringify(body),
         keepalive: true,
         signal: ctrl.signal,
@@ -166,12 +181,12 @@ const SignupModal: React.FC<Props> = ({ isOpen, onClose, initialPlanId, plans, w
       return false;
     } catch { return false; }
   };
-  const tryFetchNoCors = async (dest: string, body: any) => {
+  const tryFetchNoCors = async (dest: string, body: any, headers: Record<string,string>) => {
     try {
       await fetch(dest, {
         method: 'POST',
         mode: 'no-cors',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', ...headers },
         body: JSON.stringify(body),
         keepalive: true,
       });
@@ -179,15 +194,15 @@ const SignupModal: React.FC<Props> = ({ isOpen, onClose, initialPlanId, plans, w
     } catch { return false; }
   };
 
-  // ALTERADO: Função de submit com o novo formato do payload
   const onSubmit = async (ev: React.FormEvent) => {
     ev.preventDefault();
     if (!validate()) return;
     setSending(true);
 
-    const idem = `${Date.now()}_${Math.random().toString(16).slice(2)}`;
+    const idem = crypto?.randomUUID?.() ?? `${Date.now()}_${Math.random().toString(16).slice(2)}`;
     const selectedPlan = planById[formData.plan];
-    
+
+    // BODY com os MESMOS nomes do seu exemplo + Nome_empresa
     const payload = {
       Nome: formData.name.trim(),
       Email: formData.email.trim(),
@@ -196,97 +211,152 @@ const SignupModal: React.FC<Props> = ({ isOpen, onClose, initialPlanId, plans, w
       form_id: 'Seleciona_Checkout',
       idempotency_key: idem,
       data_envio: new Date().toISOString(),
+      Nome_empresa: formData.company.trim(), // << ADICIONADO
       ...collectMeta(),
     };
 
-    const ok =
-      (await tryFetchJson(webhookUrl, payload)) ||
-      tryBeacon(webhookUrl, payload) ||
-      (await tryFetchNoCors(webhookUrl, payload));
+    // Query params iguais ao exemplo (produto_popup & idem)
+    const url = new URL(webhookUrl);
+    url.searchParams.set('produto_popup', selectedPlan.nome);
+    url.searchParams.set('idem', idem);
 
+    // Header x-idempotency-key igual ao exemplo
+    const headers = { 'x-idempotency-key': idem };
+
+    const ok =
+      (await tryFetchJson(url.toString(), payload, headers)) ||
+      tryBeacon(url.toString(), payload) ||
+      (await tryFetchNoCors(url.toString(), payload, headers));
+
+    // Redireciona para o checkout
     window.location.href = selectedPlan.checkoutUrl;
   };
 
   const changePlan = (id: Plan['id']) => setFormData((f) => ({ ...f, plan: id }));
 
-  // RENDERIZAÇÃO (JSX)
+  // ===== RENDER =====
   return (
     <div
       aria-modal
       role="dialog"
-      className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/70 px-4 backdrop-blur-sm"
+      className="fixed inset-0 z-[1000] flex items-center justify-center px-4 backdrop-blur-sm"
+      style={{ backgroundColor: 'rgba(0,0,0,.65)' }}
       onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
     >
-      <div className="w-full max-w-xl rounded-2xl bg-neutral-900 text-neutral-100 shadow-lg overflow-hidden">
-        {/* Header */}
-        <div className="p-6 bg-gradient-to-r from-fuchsia-500 via-purple-500 to-blue-500 flex items-center justify-between">
-          <h3 className="text-2xl font-extrabold text-white">Comece agora!</h3>
-          <button onClick={onClose} className="ml-4 inline-flex h-8 w-8 items-center justify-center rounded-full bg-white/20 text-white hover:bg-white/30">✕</button>
+      <div
+        className="w-full max-w-xl rounded-2xl shadow-lg overflow-hidden border"
+        style={{
+          background: cssVar('--tf-surface', '#0f1418'),
+          color: cssVar('--tf-text', '#e6edf3'),
+          borderColor: cssVar('--tf-border', 'rgba(255,255,255,.08)'),
+        }}
+      >
+        {/* Header alinhado à identidade (sem degradê chamativo) */}
+        <div
+          className="p-6 flex items-center justify-between"
+          style={{
+            background: `linear-gradient(90deg, ${cssVar('--tf-primary', '#25D366')} 0%, ${cssVar('--tf-accent', '#1f6feb')} 100%)`,
+            color: cssVar('--tf-primary-contrast', '#06140b')
+          }}
+        >
+          <h3 className="text-2xl font-extrabold">Comece agora!</h3>
+          <button
+            onClick={onClose}
+            aria-label="Fechar"
+            className="ml-4 inline-flex h-8 w-8 items-center justify-center rounded-full"
+            style={{ background: 'rgba(255,255,255,.22)' }}
+          >
+            ✕
+          </button>
         </div>
 
         <form onSubmit={onSubmit} className="p-6 space-y-5">
           {/* Campos */}
           <div>
-            <label className="block text-sm font-medium mb-1 text-neutral-300">
-              Nome completo <span className="text-rose-400">*</span>
+            <label className="block text-sm font-medium mb-1"
+              style={{ color: cssVar('--tf-text-muted', '#a9b1b8') }}>
+              Nome completo <span style={{ color: cssVar('--tf-danger', '#f87171') }}>*</span>
             </label>
             <input
-              className="w-full rounded-lg border border-white/10 bg-neutral-800 px-3 py-2"
+              className="w-full rounded-lg px-3 py-2 bg-transparent outline-none focus:ring-2"
+              style={{
+                border: `1px solid ${cssVar('--tf-border', 'rgba(255,255,255,.08)')}`,
+                color: cssVar('--tf-text', '#e6edf3'),
+                boxShadow: 'none'
+              }}
               value={formData.name}
               onChange={(e) => setFormData((f) => ({ ...f, name: e.target.value }))}
               placeholder="Seu nome"
               required
             />
-            {errors.name && <p className="mt-1 text-xs text-rose-400">{errors.name}</p>}
+            {errors.name && <p className="mt-1 text-xs" style={{ color: cssVar('--tf-danger', '#f87171') }}>{errors.name}</p>}
           </div>
 
           <div>
-            <label className="block text-sm font-medium mb-1 text-neutral-300">
-              E-mail <span className="text-rose-400">*</span>
+            <label className="block text-sm font-medium mb-1"
+              style={{ color: cssVar('--tf-text-muted', '#a9b1b8') }}>
+              E-mail <span style={{ color: cssVar('--tf-danger', '#f87171') }}>*</span>
             </label>
             <input
-              className="w-full rounded-lg border border-white/10 bg-neutral-800 px-3 py-2"
+              className="w-full rounded-lg px-3 py-2 bg-transparent outline-none focus:ring-2"
+              style={{
+                border: `1px solid ${cssVar('--tf-border', 'rgba(255,255,255,.08)')}`,
+                color: cssVar('--tf-text', '#e6edf3'),
+              }}
               value={formData.email}
               onChange={(e) => setFormData((f) => ({ ...f, email: e.target.value }))}
               placeholder="seuemail@exemplo.com"
               inputMode="email"
               required
             />
-            {errors.email && <p className="mt-1 text-xs text-rose-400">{errors.email}</p>}
+            {errors.email && <p className="mt-1 text-xs" style={{ color: cssVar('--tf-danger', '#f87171') }}>{errors.email}</p>}
           </div>
 
           <div>
-            <label className="block text-sm font-medium mb-1 text-neutral-300">
-              WhatsApp <span className="text-rose-400">*</span>
+            <label className="block text-sm font-medium mb-1"
+              style={{ color: cssVar('--tf-text-muted', '#a9b1b8') }}>
+              WhatsApp <span style={{ color: cssVar('--tf-danger', '#f87171') }}>*</span>
             </label>
             <input
-              className="w-full rounded-lg border border-white/10 bg-neutral-800 px-3 py-2"
+              className="w-full rounded-lg px-3 py-2 bg-transparent outline-none focus:ring-2"
+              style={{
+                border: `1px solid ${cssVar('--tf-border', 'rgba(255,255,255,.08)')}`,
+                color: cssVar('--tf-text', '#e6edf3'),
+              }}
               value={formData.phone}
               onChange={(e) => setFormData((f) => ({ ...f, phone: formatPhone(e.target.value) }))}
               placeholder="(11) 99999-9999"
               inputMode="tel"
               required
             />
-            {errors.phone && <p className="mt-1 text-xs text-rose-400">{errors.phone}</p>}
+            {errors.phone && <p className="mt-1 text-xs" style={{ color: cssVar('--tf-danger', '#f87171') }}>{errors.phone}</p>}
           </div>
 
           <div>
-            <label className="block text-sm font-medium mb-1 text-neutral-300">
-              Nome da empresa <span className="text-rose-400">*</span>
+            <label className="block text-sm font-medium mb-1"
+              style={{ color: cssVar('--tf-text-muted', '#a9b1b8') }}>
+              Nome da empresa <span style={{ color: cssVar('--tf-danger', '#f87171') }}>*</span>
             </label>
             <input
-              className="w-full rounded-lg border border-white/10 bg-neutral-800 px-3 py-2"
+              className="w-full rounded-lg px-3 py-2 bg-transparent outline-none focus:ring-2"
+              style={{
+                border: `1px solid ${cssVar('--tf-border', 'rgba(255,255,255,.08)')}`,
+                color: cssVar('--tf-text', '#e6edf3'),
+              }}
               value={formData.company}
               onChange={(e) => setFormData((f) => ({ ...f, company: e.target.value }))}
               placeholder="Ex.: Clínica Sorriso LTDA"
               required
             />
-            {errors.company && <p className="mt-1 text-xs text-rose-400">{errors.company}</p>}
+            {errors.company && <p className="mt-1 text-xs" style={{ color: cssVar('--tf-danger', '#f87171') }}>{errors.company}</p>}
           </div>
 
           {/* Planos */}
           <div className="space-y-3">
-            <label className="block text-sm font-medium text-neutral-300">Escolha seu plano</label>
+            <label className="block text-sm font-medium"
+              style={{ color: cssVar('--tf-text-muted', '#a9b1b8') }}>
+              Escolha seu plano
+            </label>
             {plans.map((p) => {
               const selected = formData.plan === p.id;
               return (
@@ -294,11 +364,17 @@ const SignupModal: React.FC<Props> = ({ isOpen, onClose, initialPlanId, plans, w
                   key={p.id}
                   type="button"
                   onClick={() => changePlan(p.id)}
-                  className={`w-full text-left rounded-xl border px-4 py-4 ${selected ? 'border-purple-400 ring-2 ring-purple-300/30' : 'border-white/10'}`}
+                  className="w-full text-left rounded-xl px-4 py-4 transition"
+                  style={{
+                    border: `1px solid ${selected ? cssVar('--tf-primary', '#25D366') : cssVar('--tf-border', 'rgba(255,255,255,.08)')}`,
+                    boxShadow: selected ? `0 0 0 4px ${cssVar('--tf-primary', '#25D366')}22` : 'none',
+                    background: selected ? `${cssVar('--tf-primary', '#25D366')}14` : 'transparent',
+                    color: cssVar('--tf-text', '#e6edf3'),
+                  }}
                 >
                   <div className="flex items-center justify-between">
-                    <span>{p.nome}</span>
-                    <span>{p.preco} {p.periodo}</span>
+                    <span className="font-medium">{p.nome}</span>
+                    <span className="opacity-80">{p.preco} {p.periodo}</span>
                   </div>
                 </button>
               );
@@ -306,7 +382,16 @@ const SignupModal: React.FC<Props> = ({ isOpen, onClose, initialPlanId, plans, w
           </div>
 
           {/* CTA */}
-          <button type="submit" disabled={sending} className="w-full rounded-xl py-3 font-semibold text-white bg-gradient-to-r from-fuchsia-500 via-purple-500 to-blue-500">
+          <button
+            type="submit"
+            disabled={sending}
+            className="w-full rounded-xl py-3 font-semibold"
+            style={{
+              background: `linear-gradient(90deg, ${cssVar('--tf-primary', '#25D366')} 0%, ${cssVar('--tf-accent', '#1f6feb')} 100%)`,
+              color: cssVar('--tf-primary-contrast', '#06140b'),
+              opacity: sending ? .8 : 1
+            }}
+          >
             {sending ? 'Enviando…' : 'Finalizar Assinatura'}
           </button>
         </form>
