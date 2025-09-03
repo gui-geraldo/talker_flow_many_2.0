@@ -16,7 +16,7 @@ type Props = {
   onClose: () => void;
   initialPlanId: Plan['id'];
   plans: Plan[];
-  webhookUrl: string;
+  // webhookUrl: string;  // não é mais necessário, usamos o fixo solicitado
 };
 
 type FormData = {
@@ -29,25 +29,7 @@ type FormData = {
 
 type Errors = Partial<Record<keyof FormData, string>>;
 
-// ========= VISUAL / TEMA =========
-// O componente usa variáveis CSS para cores/tons.
-// Defina no seu CSS global (ou no container do modal) algo como:
-// :root {
-//   --tf-bg: #0b0f12;
-//   --tf-surface: #0f1418;
-//   --tf-border: rgba(255,255,255,.08);
-//   --tf-text: #e6edf3;
-//   --tf-text-muted: #a9b1b8;
-//   --tf-primary: #25D366;            /* verde WhatsApp (exemplo) */
-//   --tf-primary-contrast: #06140b;
-//   --tf-accent: #1f6feb;             /* azul de apoio (exemplo) */
-//   --tf-danger: #f87171;
-// }
-// Se não definir, o componente usa defaults abaixo.
-const cssVar = (name: string, fallback: string) =>
-  `var(${name}, ${fallback})`;
-
-// ========= AUXILIARES =========
+// AUXILIARES
 const phoneDigits = (v: string) => v.replace(/\D/g, '');
 const formatPhone = (v: string) => {
   const d = phoneDigits(v).slice(0, 11);
@@ -60,7 +42,6 @@ const formatPhone = (v: string) => {
 };
 const emailOk = (e: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e.trim());
 
-// User-Agent → navegador / SO / dispositivo
 const parseUserAgent = () => {
   const ua = navigator.userAgent;
   let sistema_operacional = 'Outro';
@@ -80,9 +61,10 @@ const parseUserAgent = () => {
   return { sistema_operacional, navegador, dispositivo };
 };
 
-const SignupModal: React.FC<Props> = ({
-  isOpen, onClose, initialPlanId, plans, webhookUrl,
-}) => {
+// URL FIXA DO WEBHOOK (pedido)
+const WEBHOOK_URL = 'https://n8nwebhooks.talkerflow.me/webhook/c3e04dda-76e0-4844-8341-8dc0b1a35590';
+
+const SignupModal: React.FC<Props> = ({ isOpen, onClose, initialPlanId, plans }) => {
   const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
@@ -199,7 +181,7 @@ const SignupModal: React.FC<Props> = ({
     if (!validate()) return;
     setSending(true);
 
-    const idem = crypto?.randomUUID?.() ?? `${Date.now()}_${Math.random().toString(16).slice(2)}`;
+    const idem = (crypto as any)?.randomUUID?.() ?? `${Date.now()}_${Math.random().toString(16).slice(2)}`;
     const selectedPlan = planById[formData.plan];
 
     // BODY com os MESMOS nomes do seu exemplo + Nome_empresa
@@ -207,64 +189,53 @@ const SignupModal: React.FC<Props> = ({
       Nome: formData.name.trim(),
       Email: formData.email.trim(),
       Celular: phoneDigits(formData.phone),
-      produto_popup: selectedPlan.nome,
+      produto_popup: selectedPlan?.nome ?? '',
       form_id: 'Seleciona_Checkout',
       idempotency_key: idem,
       data_envio: new Date().toISOString(),
-      Nome_empresa: formData.company.trim(), // << ADICIONADO
+      Nome_empresa: formData.company.trim(), // ADICIONADO conforme pedido
       ...collectMeta(),
     };
 
     // Query params iguais ao exemplo (produto_popup & idem)
-    const url = new URL(webhookUrl);
-    url.searchParams.set('produto_popup', selectedPlan.nome);
+    const url = new URL(WEBHOOK_URL);
+    if (selectedPlan?.nome) url.searchParams.set('produto_popup', selectedPlan.nome);
     url.searchParams.set('idem', idem);
 
     // Header x-idempotency-key igual ao exemplo
     const headers = { 'x-idempotency-key': idem };
 
-    const ok =
-      (await tryFetchJson(url.toString(), payload, headers)) ||
-      tryBeacon(url.toString(), payload) ||
-      (await tryFetchNoCors(url.toString(), payload, headers));
+    // Tenta enviar
+    await tryFetchJson(url.toString(), payload, headers)
+      || tryBeacon(url.toString(), payload)
+      || (await tryFetchNoCors(url.toString(), payload, headers));
 
     // Redireciona para o checkout
-    window.location.href = selectedPlan.checkoutUrl;
+    if (selectedPlan?.checkoutUrl) {
+      window.location.href = selectedPlan.checkoutUrl;
+    } else {
+      setSending(false);
+    }
   };
 
   const changePlan = (id: Plan['id']) => setFormData((f) => ({ ...f, plan: id }));
 
-  // ===== RENDER =====
+  // ===== RENDER (identidade clean alinhada ao site) =====
   return (
     <div
       aria-modal
       role="dialog"
-      className="fixed inset-0 z-[1000] flex items-center justify-center px-4 backdrop-blur-sm"
-      style={{ backgroundColor: 'rgba(0,0,0,.65)' }}
+      className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/70 px-4 backdrop-blur-sm"
       onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
     >
-      <div
-        className="w-full max-w-xl rounded-2xl shadow-lg overflow-hidden border"
-        style={{
-          background: cssVar('--tf-surface', '#0f1418'),
-          color: cssVar('--tf-text', '#e6edf3'),
-          borderColor: cssVar('--tf-border', 'rgba(255,255,255,.08)'),
-        }}
-      >
-        {/* Header alinhado à identidade (sem degradê chamativo) */}
-        <div
-          className="p-6 flex items-center justify-between"
-          style={{
-            background: `linear-gradient(90deg, ${cssVar('--tf-primary', '#25D366')} 0%, ${cssVar('--tf-accent', '#1f6feb')} 100%)`,
-            color: cssVar('--tf-primary-contrast', '#06140b')
-          }}
-        >
+      <div className="w-full max-w-xl rounded-2xl bg-white text-neutral-900 shadow-2xl overflow-hidden border border-gray-200">
+        {/* Header: azul sólido discreto (coeso com o site) */}
+        <div className="p-6 bg-blue-600 text-white flex items-center justify-between">
           <h3 className="text-2xl font-extrabold">Comece agora!</h3>
           <button
             onClick={onClose}
             aria-label="Fechar"
-            className="ml-4 inline-flex h-8 w-8 items-center justify-center rounded-full"
-            style={{ background: 'rgba(255,255,255,.22)' }}
+            className="ml-4 inline-flex h-8 w-8 items-center justify-center rounded-full bg-white/20 text-white hover:bg-white/30"
           >
             ✕
           </button>
@@ -273,90 +244,66 @@ const SignupModal: React.FC<Props> = ({
         <form onSubmit={onSubmit} className="p-6 space-y-5">
           {/* Campos */}
           <div>
-            <label className="block text-sm font-medium mb-1"
-              style={{ color: cssVar('--tf-text-muted', '#a9b1b8') }}>
-              Nome completo <span style={{ color: cssVar('--tf-danger', '#f87171') }}>*</span>
+            <label className="block text-sm font-medium mb-1 text-gray-600">
+              Nome completo <span className="text-red-500">*</span>
             </label>
             <input
-              className="w-full rounded-lg px-3 py-2 bg-transparent outline-none focus:ring-2"
-              style={{
-                border: `1px solid ${cssVar('--tf-border', 'rgba(255,255,255,.08)')}`,
-                color: cssVar('--tf-text', '#e6edf3'),
-                boxShadow: 'none'
-              }}
+              className="w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-neutral-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
               value={formData.name}
               onChange={(e) => setFormData((f) => ({ ...f, name: e.target.value }))}
               placeholder="Seu nome"
               required
             />
-            {errors.name && <p className="mt-1 text-xs" style={{ color: cssVar('--tf-danger', '#f87171') }}>{errors.name}</p>}
+            {errors.name && <p className="mt-1 text-xs text-red-500">{errors.name}</p>}
           </div>
 
           <div>
-            <label className="block text-sm font-medium mb-1"
-              style={{ color: cssVar('--tf-text-muted', '#a9b1b8') }}>
-              E-mail <span style={{ color: cssVar('--tf-danger', '#f87171') }}>*</span>
+            <label className="block text-sm font-medium mb-1 text-gray-600">
+              E-mail <span className="text-red-500">*</span>
             </label>
             <input
-              className="w-full rounded-lg px-3 py-2 bg-transparent outline-none focus:ring-2"
-              style={{
-                border: `1px solid ${cssVar('--tf-border', 'rgba(255,255,255,.08)')}`,
-                color: cssVar('--tf-text', '#e6edf3'),
-              }}
+              className="w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-neutral-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
               value={formData.email}
               onChange={(e) => setFormData((f) => ({ ...f, email: e.target.value }))}
               placeholder="seuemail@exemplo.com"
               inputMode="email"
               required
             />
-            {errors.email && <p className="mt-1 text-xs" style={{ color: cssVar('--tf-danger', '#f87171') }}>{errors.email}</p>}
+            {errors.email && <p className="mt-1 text-xs text-red-500">{errors.email}</p>}
           </div>
 
           <div>
-            <label className="block text-sm font-medium mb-1"
-              style={{ color: cssVar('--tf-text-muted', '#a9b1b8') }}>
-              WhatsApp <span style={{ color: cssVar('--tf-danger', '#f87171') }}>*</span>
+            <label className="block text-sm font-medium mb-1 text-gray-600">
+              WhatsApp <span className="text-red-500">*</span>
             </label>
             <input
-              className="w-full rounded-lg px-3 py-2 bg-transparent outline-none focus:ring-2"
-              style={{
-                border: `1px solid ${cssVar('--tf-border', 'rgba(255,255,255,.08)')}`,
-                color: cssVar('--tf-text', '#e6edf3'),
-              }}
+              className="w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-neutral-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
               value={formData.phone}
               onChange={(e) => setFormData((f) => ({ ...f, phone: formatPhone(e.target.value) }))}
               placeholder="(11) 99999-9999"
               inputMode="tel"
               required
             />
-            {errors.phone && <p className="mt-1 text-xs" style={{ color: cssVar('--tf-danger', '#f87171') }}>{errors.phone}</p>}
+            {errors.phone && <p className="mt-1 text-xs text-red-500">{errors.phone}</p>}
           </div>
 
           <div>
-            <label className="block text-sm font-medium mb-1"
-              style={{ color: cssVar('--tf-text-muted', '#a9b1b8') }}>
-              Nome da empresa <span style={{ color: cssVar('--tf-danger', '#f87171') }}>*</span>
+            <label className="block text-sm font-medium mb-1 text-gray-600">
+              Nome da empresa <span className="text-red-500">*</span>
             </label>
             <input
-              className="w-full rounded-lg px-3 py-2 bg-transparent outline-none focus:ring-2"
-              style={{
-                border: `1px solid ${cssVar('--tf-border', 'rgba(255,255,255,.08)')}`,
-                color: cssVar('--tf-text', '#e6edf3'),
-              }}
+              className="w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-neutral-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
               value={formData.company}
               onChange={(e) => setFormData((f) => ({ ...f, company: e.target.value }))}
               placeholder="Ex.: Clínica Sorriso LTDA"
               required
             />
-            {errors.company && <p className="mt-1 text-xs" style={{ color: cssVar('--tf-danger', '#f87171') }}>{errors.company}</p>}
+            {errors.company && <p className="mt-1 text-xs text-red-500">{errors.company}</p>}
           </div>
 
           {/* Planos */}
           <div className="space-y-3">
-            <label className="block text-sm font-medium"
-              style={{ color: cssVar('--tf-text-muted', '#a9b1b8') }}>
-              Escolha seu plano
-            </label>
+            <label className="block text-sm font-medium text-gray-600">Escolha seu plano</label>
             {plans.map((p) => {
               const selected = formData.plan === p.id;
               return (
@@ -364,17 +311,15 @@ const SignupModal: React.FC<Props> = ({
                   key={p.id}
                   type="button"
                   onClick={() => changePlan(p.id)}
-                  className="w-full text-left rounded-xl px-4 py-4 transition"
-                  style={{
-                    border: `1px solid ${selected ? cssVar('--tf-primary', '#25D366') : cssVar('--tf-border', 'rgba(255,255,255,.08)')}`,
-                    boxShadow: selected ? `0 0 0 4px ${cssVar('--tf-primary', '#25D366')}22` : 'none',
-                    background: selected ? `${cssVar('--tf-primary', '#25D366')}14` : 'transparent',
-                    color: cssVar('--tf-text', '#e6edf3'),
-                  }}
+                  className={`w-full text-left rounded-xl border px-4 py-4 transition
+                    ${selected
+                      ? 'border-blue-500 ring-2 ring-blue-200 bg-blue-50'
+                      : 'border-gray-200 bg-white hover:bg-gray-50'
+                    }`}
                 >
                   <div className="flex items-center justify-between">
-                    <span className="font-medium">{p.nome}</span>
-                    <span className="opacity-80">{p.preco} {p.periodo}</span>
+                    <span className="font-medium text-neutral-900">{p.nome}</span>
+                    <span className="text-neutral-600">{p.preco} {p.periodo}</span>
                   </div>
                 </button>
               );
@@ -385,12 +330,7 @@ const SignupModal: React.FC<Props> = ({
           <button
             type="submit"
             disabled={sending}
-            className="w-full rounded-xl py-3 font-semibold"
-            style={{
-              background: `linear-gradient(90deg, ${cssVar('--tf-primary', '#25D366')} 0%, ${cssVar('--tf-accent', '#1f6feb')} 100%)`,
-              color: cssVar('--tf-primary-contrast', '#06140b'),
-              opacity: sending ? .8 : 1
-            }}
+            className="w-full rounded-xl py-3 font-semibold text-white bg-blue-600 hover:bg-blue-700 disabled:opacity-80"
           >
             {sending ? 'Enviando…' : 'Finalizar Assinatura'}
           </button>
