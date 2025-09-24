@@ -1,0 +1,24 @@
+Fixed By Chaq Guide:
+
+
+1)Change directory to Macintosh HD
+cd /Volumes/Macintosh\ HD
+
+
+2)Download the macOS Sierra 10.12.6 InstallOS.dmg from Apple.com: 
+curl -L http://updates-http.cdn-apple.com/2019/cert/061-41343-20191023-02465f92-3ab5-4c92-bfe2-b725447a070d/InstallMacOSX.dmg -o InstallOS.dmg
+
+
+3)We need to mount the InstallOS.dmg:
+hdiutil attach InstallOS.dmg
+
+
+4)"Install macOS Sierra.app" from the InstallOS.dmg to Macintosh HD volume:
+installer -pkg /Volumes/Install\ macOS/InstallOS.pkg  -target /Volumes/Macintosh\ HD
+
+
+5)Start the Sierra installer:
+/Volumes/Macintosh\ HD/Applications/Install\ macOS\ Sierra.app/Contents/MacOS/Installassistant_springboard
+
+
+Note: DON'T close the terminal as it will stop the installer!
